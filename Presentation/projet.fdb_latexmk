@@ -1,9 +1,9 @@
 # Fdb version 3
-["pdflatex"] 1711273402 "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/projet.tex" "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/projet.pdf" "projet" 1711273402
+["pdflatex"] 1711273818 "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.tex" "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.pdf" "projet" 1711273818
   "/etc/texmf/web2c/texmf.cnf" 1667834249 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/projet.aux" 1711273402 8 a94a2480d3289e625eea47cd1b285758 ""
-  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/projet.tex" 1711273400 4334 e7fd0b2a2b7a5a0c441201448e6ad6b7 ""
-  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/projet.toc" 0 -1 0 ""
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.aux" 1711273818 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.tex" 1711273400 4334 e7fd0b2a2b7a5a0c441201448e6ad6b7 ""
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.toc" 0 -1 0 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/opensans/a_n3lhbv.enc" 1561498186 2876 59df564f2929ccd7d2b24aa7d14cad04 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -222,12 +222,12 @@
   "projet.tex" 1711273400 4334 e7fd0b2a2b7a5a0c441201448e6ad6b7 ""
   "projet.toc" 0 -1 0 "pdflatex"
   (generated)
-  "projet.snm"
-  "projet.nav"
   "projet.aux"
-  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/projet.pdf"
-  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/projet.log"
   "projet.toc"
-  "projet.pdf"
   "projet.log"
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.pdf"
   "projet.out"
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.log"
+  "projet.pdf"
+  "projet.nav"
+  "projet.snm"
