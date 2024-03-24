@@ -76,17 +76,26 @@
 \end{frame}
 \subsection{First sub objective}
 \begin{frame}
+<<<<<<< HEAD
     \frametitle{Implementing a Loss function based on the axioms of a
     algebraic structure}
     Let's take an example of a group structure.
     let consider a surface $M \in \mathbb{R}^{n \times n}$
     Like,
     M =
+=======
+        \frametitle{The First Approch}
+    Let's take an example of a group structure.
+    let consider a surface $M \in \mathbb{R}^{n \times n}$
+    Like, 
+    M = 
+>>>>>>> 711340b (mine)
     $\begin{bmatrix}
         \vdots & \vdots & \vdots &\vdots \\
         x_{1} & x_{2} & \cdots & x_{n} \\
         \vdots & \vdots & \vdots &\vdots \\
     \end{bmatrix}$
+<<<<<<< HEAD
     with $ x_{i} \in \mathbb{R}^{d}$
     The question is if we consider M as a group structure, it is possible to find a binary operation ($\circ$) on M such that M is a group.
     \begin{enumerate}
@@ -94,6 +103,15 @@
         $\forall x,y \in M, x \circ y = y \circ x$
         $\forall x,y,z \in M, (x \circ y) \circ z = x \circ (y \circ z)$
         $\forall x \in M, \exists -x \in M, x \circ (-x) = (-x) \circ x=e$
+=======
+    with x_{i} $\in \mathbb{R}^{d}$
+    The question is if we consider M as a group structure, it is possible to find a binary operation ($\circ$) on M such that M is a group.
+    \begin{enumerate}
+        \item $\exists e \in M, \forall x \in M, e \circ x = x \circ e = x$
+        \item $\forall{} x,y \in{} M, x \circ y = y \circ x$
+        \item $\forall x,y,z \in M, (x \circ y) \circ z = x \circ (y \circ z)$
+        \item $\forall x \in M, \exists -x \in M, x \circ -x = -x \circ x = e$
+>>>>>>> 711340b (mine)
     \end{enumerate}
 \end{frame}
 %---------------------------------------------------------------------------------
