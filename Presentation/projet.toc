@@ -1,4 +1,4 @@
 \beamer@sectionintoc {1}{Introduction}{3}{0}{1}
 \beamer@subsectionintoc {1}{1}{Definition}{3}{0}{1}
 \beamer@sectionintoc {2}{The Problems}{4}{0}{2}
-\beamer@sectionintoc {3}{second part}{5}{0}{3}
+\beamer@sectionintoc {3}{Application}{7}{0}{3}

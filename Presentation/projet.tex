@@ -1,7 +1,5 @@
-\documentclass[
-]{beamer}
-	11pt
-]{beamer}
+\documentclass[11pt]{beamer}
+
 
 
 
@@ -76,7 +74,9 @@
 \begin{frame}
     \frametitle{The Problems}
     The problems consist if we are giving a set of data in V, and those data is defined on a regular surface or variety, and we want to know if it is possible to detect a certain algebraic structure on it.
-
+\end{frame}
+\begin{frame}
+		\frametitle{The First Part}
 	Let's take an example of a group structure.
 	let consider a surface $M \in \mathbb{R}^{n \times n}$
 	Like, 
@@ -96,10 +96,42 @@
 	\end{enumerate}
 \end{frame}
 
+
+
+
+
+
+
 %---------------------------------------------------------------------------------
-\section{second part}
 \begin{frame}
-	% chahid
+    \frametitle{The second Part}
+	Let's take an example of a group structure.
+	let consider a set of points  $ V $ and let  $ f: R \rightarrow V $ a one-to-one
+	function from $R$ into a codomain $V$. We define the vector addition by
+	
+     $$ x \oplus y = f(f^{-1}(x) + f^{-1}(y)) $$
+		
+
+
+	The question is if we consider $V$ as a group structure, it is possible to find a binary operation ($\oplus$) on $V$ such that this relation is satisfying.
+	
+\end{frame}
+
+
+%---------------------------------------------------------------------------------
+\section{Application}
+\begin{frame}
+	\frametitle{Application}
+	Many differential equations encountered 
+	in solving have parametric solutions.
+	 Thus, to find the solution for each 
+	 parameter, this often requires 
+	 numerous calculations. To optimize 
+	 computation and storage times, we 
+	 define an algebraic structure 
+	 whereby, if we compute the solution 
+	 for parameters $\lambda_1$ and $ \lambda_2 $,
+	  we can deduce $\lambda_3$ ...
 
 \end{frame}
 
@@ -110,8 +142,6 @@
 
 %-----------------------------------------------------------------------------------
 
-
------------------------
 
 
 \end{document} 
