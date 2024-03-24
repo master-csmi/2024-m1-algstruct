@@ -209,3 +209,5 @@ Xe = G.f()
 if args.save_model:
     print('Saving model...')
     torch.save(model.state_dict(), "nas_plus.pt")
+    
+    
