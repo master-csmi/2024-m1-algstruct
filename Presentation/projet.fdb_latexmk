@@ -1,8 +1,24 @@
 # Fdb version 3
+<<<<<<< HEAD
 ["pdflatex"] 1711471160 "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.tex" "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.pdf" "projet" 1711471161
   "/etc/texmf/web2c/texmf.cnf" 1667834249 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.aux" 1711471161 4444 f250a1aa63d8d3333dfad9f727795e20 ""
   "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.tex" 1711471160 6944 d021b7fc5a2d37f42c9c74e59a5b639f ""
+=======
+<<<<<<< HEAD
+["pdflatex"] 1711407553 "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.tex" "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.pdf" "projet" 1711407553
+  "/etc/texmf/web2c/texmf.cnf" 1667834249 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.aux" 1711407553 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.tex" 1711407551 6699 489f745cc4cc6c935c13432c177f9ba8 ""
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.toc" 0 -1 0 ""
+=======
+["pdflatex"] 1711295369 "/home/chahid/S2_Projet/2024-m1-algstruct-1/Presentation/projet.tex" "projet.pdf" "projet" 1711295369
+  "/etc/texmf/web2c/texmf.cnf" 1706989953 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/home/chahid/S2_Projet/2024-m1-algstruct-1/Presentation/projet.tex" 1711295363 4334 e7fd0b2a2b7a5a0c441201448e6ad6b7 ""
+>>>>>>> 973c44d (Mod)
+  "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
+  "/usr/share/texlive/texmf-dist/fonts/enc/dvips/opensans/a_n3lhbv.enc" 1561498186 2876 59df564f2929ccd7d2b24aa7d14cad04 ""
+>>>>>>> 17b7235 (Mod)
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -199,16 +215,37 @@
   "/usr/share/texlive/texmf-dist/tex/latex/translator/translator-theorem-dictionary-English.dict" 1512078926 3523 1f9d9b91f7d78b73e74c7e97bca30fb0 ""
   "/usr/share/texlive/texmf-dist/tex/latex/translator/translator.sty" 1559339174 8691 e154b4b39c7cd1cfa9301a391c44afdd ""
   "/usr/share/texlive/texmf-dist/tex/latex/url/url.sty" 1388531844 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
+<<<<<<< HEAD
   "/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty" 1463002160 55589 34128738f682d033422ca125f82e5d62 ""
   "/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty" 1417732693 4962 9c1069474ff71dbc47d5006555e352d3 ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
   "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1667834688 4770781 1ed1abab22da9c3e2cc82e4db562318b ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1711000056 8256417 61b544524a81e42ba54c5825dfeb3672 ""
+<<<<<<< HEAD
   "projet.aux" 1711471134 4444 f250a1aa63d8d3333dfad9f727795e20 "pdflatex"
   "projet.nav" 1711471161 1919 a7915864b501e00844194f408521f810 "pdflatex"
   "projet.tex" 1711471160 6944 d021b7fc5a2d37f42c9c74e59a5b639f ""
   "projet.toc" 1711471134 354 089e29aedf947ce988fa585e557586a4 "pdflatex"
+=======
+  "projet.aux" 0 -1 0 "pdflatex"
+  "projet.nav" 0 -1 0 "pdflatex"
+  "projet.out" 0 -1 0 "pdflatex"
+  "projet.tex" 1711407551 6699 489f745cc4cc6c935c13432c177f9ba8 ""
+=======
+  "/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty" 1635798903 56029 3f7889dab51d620aa43177c391b7b190 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty" 1605910342 4902 efb3d66683a2da2a232f71e3a571a899 ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
+  "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1707074966 4036811 4cb80868003c86b962b6b5ae1e1e2902 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1707074990 1405648 0c65c60c475be56fff716fbd324e8e4f ""
+  "projet.aux" 1711295369 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "projet.nav" 0 -1 0 "pdflatex"
+  "projet.out" 0 -1 0 "pdflatex"
+  "projet.tex" 1711295363 4334 e7fd0b2a2b7a5a0c441201448e6ad6b7 ""
+>>>>>>> 973c44d (Mod)
+  "projet.toc" 0 -1 0 "pdflatex"
+>>>>>>> 17b7235 (Mod)
   (generated)
   "projet.aux"
   "projet.nav"
