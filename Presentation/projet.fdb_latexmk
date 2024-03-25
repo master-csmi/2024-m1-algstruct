@@ -1,5 +1,6 @@
 # Fdb version 3
 <<<<<<< HEAD
+<<<<<<< HEAD
 ["pdflatex"] 1711295369 "/home/chahid/S2_Projet/2024-m1-algstruct-1/Presentation/projet.tex" "projet.pdf" "projet" 1711295369
   "/etc/texmf/web2c/texmf.cnf" 1706989953 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/chahid/S2_Projet/2024-m1-algstruct-1/Presentation/projet.tex" 1711295363 4334 e7fd0b2a2b7a5a0c441201448e6ad6b7 ""
@@ -9,6 +10,13 @@
   "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.aux" 1711295834 2890 3e7258d1319ea00f331098e37d13eba6 ""
   "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.tex" 1711295859 5399 bb7374b8c843df8082ff7234ccd3b055 ""
 >>>>>>> 71b2c63 (mine)
+=======
+["pdflatex"] 1711407553 "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.tex" "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.pdf" "projet" 1711407553
+  "/etc/texmf/web2c/texmf.cnf" 1667834249 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.aux" 1711407553 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.tex" 1711407551 6699 489f745cc4cc6c935c13432c177f9ba8 ""
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.toc" 0 -1 0 ""
+>>>>>>> bb4e784 (modification)
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/opensans/a_n3lhbv.enc" 1561498186 2876 59df564f2929ccd7d2b24aa7d14cad04 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -38,7 +46,9 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/ascender/opensans/OpenSans-Regular.pfb" 1561498186 100962 9a830a6477c526fbf4a9696e1678f3f0 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1248133631 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1248133631 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
@@ -233,19 +243,27 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1581979058 38841 ce3692aa899bb693b90b87eaa5d4d84e ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1667834688 4770781 1ed1abab22da9c3e2cc82e4db562318b ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1711000056 8256417 61b544524a81e42ba54c5825dfeb3672 ""
+<<<<<<< HEAD
   "projet.aux" 1711295834 2890 3e7258d1319ea00f331098e37d13eba6 "pdflatex"
   "projet.nav" 1711295860 1421 86b96e226104341c6c368021e0a58c71 "pdflatex"
   "projet.out" 1711295834 199 220beb24f546bda9b77d49ce0bf0a627 "pdflatex"
   "projet.tex" 1711295859 5399 bb7374b8c843df8082ff7234ccd3b055 ""
   "projet.toc" 1711295834 195 7ae4d31dfa57c2acd13fe07299abafa3 "pdflatex"
 >>>>>>> 71b2c63 (mine)
+=======
+  "projet.aux" 0 -1 0 "pdflatex"
+  "projet.nav" 0 -1 0 "pdflatex"
+  "projet.out" 0 -1 0 "pdflatex"
+  "projet.tex" 1711407551 6699 489f745cc4cc6c935c13432c177f9ba8 ""
+  "projet.toc" 0 -1 0 "pdflatex"
+>>>>>>> bb4e784 (modification)
   (generated)
-  "projet.snm"
   "projet.aux"
   "projet.log"
-  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.log"
-  "projet.nav"
   "projet.pdf"
+  "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.log"
   "projet.toc"
-  "projet.out"
+  "projet.snm"
   "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.pdf"
+  "projet.nav"
+  "projet.out"
