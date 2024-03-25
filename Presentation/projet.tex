@@ -75,8 +75,10 @@
     \frametitle{The Problems}
     The problems consist if we are giving a set of data in V, and those data is defined on a regular surface or variety, and we want to know if it is possible to detect a certain algebraic structure on it.
 \end{frame}
+
+\section{The Objectives}
 \begin{frame}
-        \frametitle{The First Approch}
+        \frametitle{The First Objective}
     Let's take an example of a group structure.
     let consider a surface $M \in \mathbb{R}^{n \times n}$
     Like, 
@@ -104,12 +106,13 @@
 
 %---------------------------------------------------------------------------------
 \begin{frame}
-    \frametitle{The Second Approch}
+    \frametitle{Second Objective}
 	Let's take an example of a group structure.
 	let consider a set of points  $ V $ and let  $ f: R \rightarrow V $ a one-to-one
 	function from $R$ into a codomain $V$. We define the vector addition by
 	
      $$ x \oplus y = f(f^{-1}(x) + f^{-1}(y)) $$
+     $$ \alpha \odot x = f(f^{-1}(x) * \alpha) $$
 		
 
 
@@ -119,29 +122,48 @@
 
 
 %---------------------------------------------------------------------------------
-\section{Application}
-\begin{frame}
-	\frametitle{Application}
-	Many differential equations encountered 
-	in solving have parametric solutions.
-	 Thus, to find the solution for each 
-	 parameter, this often requires 
-	 numerous calculations. To optimize 
-	 computation and storage times, we 
-	 define an algebraic structure 
-	 whereby, if we compute the solution 
-	 for parameters $\lambda_1$ and $ \lambda_2 $,
-	  we can deduce $\lambda_3$ ...
-
-\end{frame}
-
-
-
-
-
 
 %-----------------------------------------------------------------------------------
+\section{Examples}
+\begin{frame}
+    \frametitle{Examples}
+    \begin{itemize}
+        \item Let f be a function from $R$ to $Vect{e_1}$ such that $f(x) = x.e_1$.
+        we have $f^{-1}(x) = \lambda$.
+            we take x and y in $vect{e_1}$, we have \\
+            $x\oplus y = f(f^{-1}(x) + f^{-1}(y)) = x + y$ \\
+            $\alpha \odot x = f(f^{-1}(x) * \alpha) = \alpha x$
+            \item Let $\beta$ be any positive real number and let $f: \mathbb{R} \rightarrow \mathbb{R}^{+}$be defined by $f(x)=(1 / \beta) e^x$. Then $f$ is a one-to-one function from $\mathbb{R}$ onto the set of positive real numbers, and $f^{-1}(x)=\ln (\beta x)$ for $x>0$. we would define vector addition and scalar multiplication by
+            $$
+            x \oplus y=\frac{1}{\beta} e^{\ln (\beta x)+\ln (\beta y)}=\beta x y
+            $$ 
+            
+            $$
+            \alpha \odot x=\frac{1}{\beta} e^{\alpha \ln (\beta x)}=\beta^{\alpha-1} x^\alpha.
+            $$ 
+        \end{itemize}
+    \end{frame}
 
+    %-----------------------------------------------------------------------------------
 
-
-\end{document} 
+    
+    \section{Application}
+    \begin{frame}
+        \frametitle{Application}
+        Many differential equations encountered 
+        in solving have parametric solutions.
+         Thus, to find the solution for each 
+         parameter, this often requires 
+         numerous calculations. To optimize 
+         computation and storage times, we 
+         define an algebraic structure 
+         whereby, if we compute the solution 
+         for parameters $\lambda_1$ and $ \lambda_2 $,
+         we can deduce $\lambda_3$ ...
+         
+        \end{frame}
+    
+    
+    
+    
+    \end{document} 
