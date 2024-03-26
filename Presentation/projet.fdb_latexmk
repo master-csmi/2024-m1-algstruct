@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ["pdflatex"] 1711295369 "/home/chahid/S2_Projet/2024-m1-algstruct-1/Presentation/projet.tex" "projet.pdf" "projet" 1711295369
   "/etc/texmf/web2c/texmf.cnf" 1706989953 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/chahid/S2_Projet/2024-m1-algstruct-1/Presentation/projet.tex" 1711295363 4334 e7fd0b2a2b7a5a0c441201448e6ad6b7 ""
@@ -14,6 +15,8 @@
 =======
 =======
 >>>>>>> 17b7235 (Mod)
+=======
+>>>>>>> ff1e41d (New)
 ["pdflatex"] 1711407553 "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.tex" "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.pdf" "projet" 1711407553
   "/etc/texmf/web2c/texmf.cnf" 1667834249 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/Presentation/projet.aux" 1711407553 8 a94a2480d3289e625eea47cd1b285758 ""
@@ -27,7 +30,15 @@
   "/etc/texmf/web2c/texmf.cnf" 1706989953 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/chahid/S2_Projet/2024-m1-algstruct-1/Presentation/projet.tex" 1711295363 4334 e7fd0b2a2b7a5a0c441201448e6ad6b7 ""
 >>>>>>> 973c44d (Mod)
+<<<<<<< HEAD
 >>>>>>> 17b7235 (Mod)
+=======
+=======
+["pdflatex"] 1711295597 "/home/chahid/S2_Projet/2024-m1-algstruct-1/Presentation/projet.tex" "projet.pdf" "projet" 1711295597
+  "/etc/texmf/web2c/texmf.cnf" 1706989953 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/home/chahid/S2_Projet/2024-m1-algstruct-1/Presentation/projet.tex" 1711295593 5321 608593d2ada3cfacf9331e442ada88b0 ""
+>>>>>>> 99bd769 (New)
+>>>>>>> ff1e41d (New)
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/opensans/a_n3lhbv.enc" 1561498186 2876 59df564f2929ccd7d2b24aa7d14cad04 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -276,11 +287,15 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1707074966 4036811 4cb80868003c86b962b6b5ae1e1e2902 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1707074990 1405648 0c65c60c475be56fff716fbd324e8e4f ""
-  "projet.aux" 1711295369 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "projet.aux" 1711295597 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
   "projet.nav" 0 -1 0 "pdflatex"
   "projet.out" 0 -1 0 "pdflatex"
+<<<<<<< HEAD
   "projet.tex" 1711295363 4334 e7fd0b2a2b7a5a0c441201448e6ad6b7 ""
 >>>>>>> 973c44d (Mod)
+=======
+  "projet.tex" 1711295593 5321 608593d2ada3cfacf9331e442ada88b0 ""
+>>>>>>> 99bd769 (New)
   "projet.toc" 0 -1 0 "pdflatex"
 >>>>>>> bb4e784 (modification)
   (generated)
