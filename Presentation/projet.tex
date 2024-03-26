@@ -1,15 +1,12 @@
-\documentclass[11pt]{beamer}
+\documentclass{beamer}
 
-
-
-
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage{bookmark} % Add the bookmark package to handle changed files
 \usepackage{booktabs}
 \usetheme{CambridgeUS}
 \usefonttheme{serif}
-\usepackage{palatino}
-\usepackage[default]{opensans}
-\useinnertheme{circles}
-\setbeamertemplate{caption}[numbered]
+\usepackage{opensans}
+\usepackage{amsmath}
 %----------------------------------------------------------------------------------------
 %	PRESENTATION INFORMATION
 %----------------------------------------------------------------------------------------
@@ -17,7 +14,7 @@
 \title{The Discovery of an  Algebraic structure}
 
 \subtitle{CSMI 2024}
-\author[ASSIGBE Komi . RAHOUTI Chahid .]{ASSIGBE Béni \and  RAHOUTI Chahid}
+\author[ASSIGBE Komi . RAHOUTI Chahid .]{ASSIGBE Komi \and  RAHOUTI Chahid}
 \institute[]{University of Strasbourg \\ \smallskip} % Your institution, the optional parameter can be used for the institution shorthand and will appear on the bottom of every slide after author names, while the required parameter is used on the title slide and can include your email address or additional information on separate lines
 
 \date[\today]{Mathematics and applications \\ \today} % Presentation date or conference/meeting name, the optional parameter can contain a shortened version to appear on the bottom of every slide, while the required parameter value is output to the title slide
@@ -37,9 +34,8 @@
 %----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS SLIDE
 %----------------------------------------------------------------------------------------
-
 \begin{frame}
-	\frametitle{Presentation overview } % Slide title, remove this command for no title
+    \frametitle{Table of contents}
     \tableofcontents
 \end{frame}
 
@@ -70,15 +66,16 @@
 
 
 %---------------------------------------------------------------------------------
-\section{The Problems}
+\section{Objectives}
 \begin{frame}
-    \frametitle{The Problems}
-    The problems consist if we are giving a set of data in V, and those data is defined on a regular surface or variety, and we want to know if it is possible to detect a certain algebraic structure on it.
+    \frametitle{The Main Objective}
+    Our Main objective consist,  if we are giving a set of data in V, and those data is defined on a regular surface or variety, and we want to know if it is possible to detect a certain algebraic structure using Neural Networks Learning.
 \end{frame}
 
-\section{The Objectives}
+\subsection{First sub objective} 
 \begin{frame}
-        \frametitle{The First Objective}
+    \frametitle{Implementing a Loss function based on the axioms of a
+    algebraic structure}
     Let's take an example of a group structure.
     let consider a surface $M \in \mathbb{R}^{n \times n}$
     Like, 
@@ -92,31 +89,29 @@
     The question is if we consider M as a group structure, it is possible to find a binary operation ($\circ$) on M such that M is a group.
     \begin{enumerate}
         \item $\exists e \in M, \forall x \in M, e \circ x = x \circ e = x$
-        \item $\forall{} x,y \in{} M, x \circ y = y \circ x$
+        \item $\forall x,y \in M, x \circ y = y \circ x$
         \item $\forall x,y,z \in M, (x \circ y) \circ z = x \circ (y \circ z)$
-        \item $\forall x \in M, \exists -x \in M, x \circ -x = -x \circ x = e$
+        \item $\forall x \in M, \exists -x \in M, x \circ (-x) = (-x) \circ x=e$
     \end{enumerate}
 \end{frame}
 
 
-
-
-
-
+%----------------------------------------------------------------------------------------
+%	TITLE SLIDE
+%----------------------------------------------------------------------------------------
 
 %---------------------------------------------------------------------------------
+\subsection{Second sub objective}
 \begin{frame}
-    \frametitle{Second Objective}
+    \frametitle{Find a binary operation on V and a function f }
 	Let's take an example of a group structure.
 	let consider a set of points  $ V $ and let  $ f: R \rightarrow V $ a one-to-one
 	function from $R$ into a codomain $V$. We define the vector addition by
 	
-     $$ x \oplus y = f(f^{-1}(x) + f^{-1}(y)) $$
-     $$ \alpha \odot x = f(f^{-1}(x) * \alpha) $$
-		
+    $$ x \oplus y = f(f^{-1}(x) + f^{-1}(y)) $$
+    $$ \alpha \odot x = f(f^{-1}(x) * \alpha) $$
 
-
-	The question is if we consider $V$ as a group structure, it is possible to find a binary operation ($\oplus$) on $V$ such that this relation is satisfying.
+	The question is if we consider $V$ as a Vector Space, it is possible to find a binary operation ($\oplus$) and ($\odot$) on $V$ such that $V$ is a Vector Space.
 	
 \end{frame}
 
@@ -145,25 +140,16 @@
     \end{frame}
 
     %-----------------------------------------------------------------------------------
-
-    
-    \section{Application}
-    \begin{frame}
-        \frametitle{Application}
-        Many differential equations encountered 
-        in solving have parametric solutions.
-         Thus, to find the solution for each 
-         parameter, this often requires 
-         numerous calculations. To optimize 
-         computation and storage times, we 
-         define an algebraic structure 
-         whereby, if we compute the solution 
-         for parameters $\lambda_1$ and $ \lambda_2 $,
-         we can deduce $\lambda_3$ ...
-         
-        \end{frame}
-    
-    
-    
-    
-    \end{document} 
+    \section{Tools}
+    \begin{frame}{Tools}
+        For the implementation of this project, we are going to use :
+        \begin{itemize}
+            \item Python
+            \item Pytorch
+            \item Using Neural Networks learning by transforming the axioms of 
+            an Algebraic structure into a loss to minimize.
+            \item using slack to communicate and share Idea 
+            \item Using Git to share code and work togeether 
+        \end{itemize}
+    \end{frame}
+\end{document} 
