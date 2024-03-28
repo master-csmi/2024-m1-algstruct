@@ -1,0 +1,297 @@
+\documentclass{report}
+
+% Packages
+\usepackage[utf8]{inputenc}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\newtheorem{Example}{Example}
+\usepackage[T1]{fontenc}    % Encodage des polices
+\usepackage[english,french]{babel} % Langue du document
+\usepackage{subcaption}
+\usepackage{hyperref}       % Pour les liens hypertextes
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Titre du rapport
+\title{The Discovery of an  Algebraic structure}
+\author{ASSIGBE Komi \\ RAHOUTI Chahid .}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+\subsection{Definition}
+    What is an Algebraic structure? An algebraic structure consists of a nonempty set A (called the underlying set, carrier set or domain), a collection of operations on A (typically binary operations such as addition and multiplication), and a finite set of identities, known as axioms, that these operations must satisfy.
+
+    Among the multiples algebraic structures, we can name:
+    \begin{itemize}
+        \item Group
+        \item Ring
+        \item Field
+        \item Vector space
+                \item .....
+            \end{itemize}
+
+        \begin{Example}
+            A simple example of a group for 
+            addition is the additive group 
+            of integers $ (\mathbb{Z}, +) $ 
+            satisfies the following properties 
+            for any $ a, b, c \in \mathbb{Z} $:
+            \begin{itemize}
+                \item Closure under the addition operation: $ a + b $ is an integer.
+                \item Associativity: $ (a + b) + c = a + (b + c) $.
+                \item Existence of the identity element: There exists an element $ 0 \in \mathbb{Z} $ such that $ a + 0 = a $ for every $ a \in \mathbb{Z} $.
+                \item Existence of inverses: For each element $ a \in \mathbb{Z} $, there exists an element $ -a \in \mathbb{Z} $ such that $ a + (-a) = 0 $.
+                \item Commutativity: $ a + b = b + a $ for every $ a, b \in \mathbb{Z} $.
+            \end{itemize}
+        These properties make $ (\mathbb{Z}, +) $ a fundamental example of an additive group.
+            
+        \end{Example}   
+
+        \section{Objective}
+        Our problem is a mathematical problem known 
+        as data detection on structured surfaces or 
+        varieties. When presented with a dataset $V$ 
+        defined on such structured surfaces, the challenge 
+        arises in determining whether there exists a 
+        discernible algebraic pattern within the data. 
+        Essentially, it's about investigating whether 
+        there are underlying mathematical relationships 
+        or structures governing the given dataset. 
+        This problem is crucial in various fields 
+        such as algebraic geometry and data analysis, 
+        where understanding these structures aids in 
+        making predictions or drawing meaningful 
+        conclusions from the data. Thus, the goal 
+        is to identify and characterize the algebraic
+        properties inherent in the dataset for further
+        analysis and interpretation.\\
+
+        \begin{tikzpicture}
+        \begin{axis}[
+            axis lines = middle,
+            xlabel = $x$,
+            ylabel = {$f(x)$},
+            domain=-3:3,
+            samples=100,
+        ]
+
+        \addplot[blue, thick]{x^3 + x^2};
+        \addplot[red, mark = *, only marks] coordinates {(-1,0) (1,2)};
+        \addplot[green, mark = *, only marks] coordinates {(2,12)};
+        \addplot[dashed, gray] coordinates {(-1,0) (1,2) (2,12)};
+
+        \end{axis}
+        \end{tikzpicture}
+
+
+        \textbf{We have two main sub-objectives to address:}
+
+        \begin{enumerate}
+            \item Setting  points in a space or a surface, we want to know if it is possible to define a binary operation on these points such that they form a group. In other words, 
+            we are going to Transform the axioms of a group to a loss function, that we will minimize to find a binary operation that satisfies these axioms.
+                \item Is it possible to find a function  $f$ which can map binary operations (especially $\oplus$ and $\odot$) defined on $V$ to a binary operation defined on $\mathbb{R}$ such that the group axioms are satisfied
+            \end{enumerate}
+
+
+
+        \section{First sub-objective}
+            Let's take an example of a group structure.
+            let consider a surface $M \in \mathbb{R}^{n \times n}$
+            Like, M =  $\begin{bmatrix}
+                \vdots & \vdots & \vdots &\vdots \\
+                x_{1} & x_{2} & \cdots & x_{n} \\
+                \vdots & \vdots & \vdots &\vdots \\
+            \end{bmatrix}$   with $x_{i} \in \mathbb{R}^{d}$ \\
+    The question is if we consider M as a group structure, it is possible to find a binary operation ($\circ$) on M such that M is following these group axioms.
+    \begin{enumerate}
+        \item $\exists e \in M, \forall x \in M, e \circ x = x \circ e = x$
+        \item $\forall{} x,y \in{} M, x \circ y = y \circ x$
+        \item $\forall x,y,z \in M, (x \circ y) \circ z = x \circ (y \circ z)$
+        \item $\forall x \in M, \exists -x \in M, x \circ -x = -x \circ x = e$
+    \end{enumerate}
+
+% Contenu de la section 2
+
+\section{Second sub-Objective}
+	let consider a set of points  $ V $ and let  $ f: R \rightarrow V $ a one-to-one
+	function from $R$ into a codomain $V$. We define two binary operations $\oplus$ and $\odot$ on $V$ as follows:
+    $$ x \oplus y = f(f^{-1}(x) + f^{-1}(y)) $$
+    $$ \alpha \odot x = f(  \alpha.f^{-1}(x)) $$
+	The question is if we consider $V$ as a group 
+    structure, it is possible to find a binary 
+    operation ($\oplus$) and ($\otimes $) on $V$ and a function f 
+    such that this relations is satisfying.
+    \begin{Example}[Trivial Example]
+        Let f be a function from $R$ to $Vect{(e_1)}$ such that $f(x) = x.e_1$.
+        we have $f^{-1}(x) = \lambda$.
+            we take x and y in $vect{(e_1)}$, we have \\
+            $x\oplus y = f(f^{-1}(x) + f^{-1}(y)) = x + y$ \\
+            $\alpha \odot x = f(f^{-1}(x) * \alpha) = \alpha x$ 
+    \end{Example}
+    \begin{Example}[Non-Trivial Example]
+        Let $\beta$ be any positive real number and let $f: \mathbb{R} \rightarrow \mathbb{R}_{+}^{*}$be
+        defined by $f(x)=(1 / \beta) e^x$. Then $f$ is a one-to-one
+        function from $\mathbb{R}$ onto the set of positive real numbers, 
+        and $f^{-1}(x)=\ln (\beta x)$ for $x>0$. we would define vector 
+        addition and scalar multiplication by
+        $$
+        x \oplus y=\frac{1}{\beta} e^{\ln (\beta x)+\ln (\beta y)}=\beta x y
+        $$ 
+        
+        $$
+        \alpha \odot x=\frac{1}{\beta} e^{\alpha \ln (\beta x)}=\beta^{\alpha-1} x^\alpha.
+        $$ 
+    \end{Example}
+	
+\section{Tools}
+    To address these objectives, we leverage
+    the Pytorch library in Python using Neural Networks Learning to find the optimal parameters that minimize the loss function.\\
+    We are also going to use also Git to share Code and collaborate on the project.\\ 
+    We will also use slack for communication and sharing information.\\
+
+    For Example, \textbf{for the fist sub-objective, we can define the losses as follows}:
+
+    \begin{enumerate}
+        \item Existence of the identity element:  \[
+            L_1(\theta) = \sum_{v \in V} (e_{\text{obs}} - e_{\text{pred}})^2
+            \]
+        \item Commutativity:
+        \[
+        L_2(\theta) = \sum_{(x, y) \in V \times V} (x \oplus y - y \oplus x)^2
+        \]
+        \item Associativity:
+        \[
+        L_3(\theta) = \sum_{(x, y, z) \in V \times V \times V} ((x \oplus y) \oplus z - x \oplus (y \oplus z))^2
+        \]
+        \item Existence of inverses:
+        \[
+        L_4(\theta) = \sum_{x \in V} (-x_{\text{obs}} + (-x_{\text{pred}}))^2
+        \] 
+    \end{enumerate}
+    
+    Here, $\theta$ represents the parameters of our model.
+    These functions $L_i(\theta)$ measure the discrepancies
+    between the observed and predicted values for each group 
+    axiom, where $i = 1, 2, 3, 4$. By minimizing these functions
+    $L_i(\theta)$, we aim to adjust our model to be as close as
+    possible to the real data, ensuring that our algebraic 
+    structure accurately satisfies the group axioms. 
+
+    $$
+    L(\theta) = \min_{\theta} L_1(\theta) + L_2(\theta) + L_3(\theta) + L_4(\theta)
+    $$
+
+
+    This function $L(\theta)$ represents the sum of losses 
+    associated with each group axiom. By minimizing 
+    this function $L(\theta)$, we aim to adjust our model so
+    that it optimally satisfies the four group axioms, 
+    ensuring the accuracy and consistency of our 
+    algebraic structure with respect to the provided data.\\
+
+
+    \textbf{For the second sub-objective, we can define the losses as follows:}
+    Here are the two losses for the second approach
+  \begin{enumerate}
+    \item Loss for vector addition:
+    \[
+    L_1(\theta) = \sum_{(x, y) \in V \times V} \left\lVert x \oplus y - \left(f(f^{-1}(x)) + f(f^{-1}(y))\right) \right\rVert^2
+    \]
+    \item Loss for scalar multiplication:
+    \[
+    L_2(\theta) = \sum_{(\alpha, x) \in \mathbb{R} \times V} \left\lVert \alpha \odot x - f(\alpha \cdot f^{-1}(x)) \right\rVert^2
+    \]
+\end{enumerate}
+
+Function $L(\theta)$, the sum of these two functions:
+\[
+L(\theta) = L_1(\theta) + L_2(\theta)
+\]
+Here, $\theta$ represents the parameters of 
+our model. These functions $L_1(\theta)$ and
+$L_2(\theta)$ measure the discrepancies between 
+the observed and predicted values for vector addition 
+and scalar multiplication operations, respectively. 
+By minimizing these functions, we aim to adjust our 
+model to accurately represent the algebraic structure 
+present in the dataset. \\  
+
+
+\section{Application}
+Many differential equations encountered 
+in solving have parametric solutions.
+Thus, to find the solution for each 
+parameter, this often requires 
+numerous calculations. To optimize 
+computation and storage times, we 
+define an algebraic structure 
+whereby, if we compute the solution 
+for parameters $\lambda_1$ and $ \lambda_2 $,
+we can deduce $\lambda_3$ ...
+\begin{Example}
+    Consider the general form of a first-order linear ODE with a parameter $\lambda$:
+    
+    \[
+    \frac{dy}{dx} + \lambda y = 0
+    \]
+    
+    The solution to this differential 
+    equation depends on the parameter
+    $\lambda$, the solution to this ODE is given by:
+    
+    \[
+    y(x) = C e^{-\lambda x}
+    \]
+    where $C$ is the constant of integration.
+    The solution on $y(0)=1$ is given by:
+    $y(x) = e^{-\lambda x}$
+    
+
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines = middle,
+    xlabel = $x$,
+    ylabel = {$y(x)$},
+    domain=0:3,
+    samples=100,
+    legend pos=outer north east
+]
+
+\addplot[blue, thick]{exp(-0.5*x)}; \addlegendentry{$\lambda = 0.5$}
+\addplot[red, thick]{exp(-3*x)}; \addlegendentry{$\lambda = 3$}
+\addplot[green, thick]{exp(-7*x)}; \addlegendentry{$\lambda = 7$}
+
+\end{axis}
+\end{tikzpicture}
+
+
+In this example, the parameter $\lambda$ affects the behavior of the solution function $y(x)$. Different values of $\lambda$ lead to different solutions, each with its own characteristic behavior. Thus, the solution is a function with a parameter $\lambda$.
+\end{Example}
+
+\section{Conclusion}
+this project provides a comprehensive 
+exploration of algebraic structures and
+their relevance in data analysis, 
+offering insights into how these 
+structures can be effectively applied 
+to detect patterns and derive meaningful
+conclusions from datasets. Through Python 
+implementation and testing, the project 
+demonstrates practical approaches to 
+optimize algebraic structures for 
+improved accuracy and performance 
+in various applications
+    
+\end{document}
