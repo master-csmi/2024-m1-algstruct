@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+import torch as tc
 #from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 
@@ -190,7 +191,8 @@ K = 200
 X = tc.rand(K, 2)
 Y = tc.rand(K, 2)
 
-f = tc.vmap(lambda X : X[0]**2)
+beta = 1.0  # replace with your value of beta
+f = tc.vmap(lambda X : (1/beta) * tc.exp(X[0]))
 fX = f(X)
 fY = f(Y)
 
@@ -204,7 +206,7 @@ plt.plot(X[:, 0], X[:, 1], 'x', label='train X')
 plt.plot(Y[:, 0], Y[:, 1], 'o', label='train Y')
 
 
-Xe = G.f()
+Xe = G.f(X)
 
 if args.save_model:
     print('Saving model...')
