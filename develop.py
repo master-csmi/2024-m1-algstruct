@@ -23,6 +23,8 @@ class Morphism(nn.Module):
         self.fc2 = nn.Linear(neurons, neurons)
         self.fc3 = nn.Linear(neurons, neurons)
         self.fc4 = nn.Linear(neurons, dim_E)
+
+        # dropout layer
     def forward(self, x):
         x = self.fc1(x)
         x = self.fc2(x)
@@ -98,9 +100,9 @@ class LoiScalaire(nn.Module):
         return output
     
     
-class Group(nn.Module):
+class Vect_space(nn.Module):
     def __init__ (self, K,  dim_E = 1 , neurons = 6 , name = 'Groupe (E,+)'):
-        super(Group, self).__init__()
+        super(Vect_space, self).__init__()
         self.f    = Morphism(dim_E = dim_E, neurons = neurons)
         self.fi   = InverseMorphism(dim_E = dim_E, neurons = neurons)
         self.plus = LoiBinaire(dim_E = dim_E, neurons = neurons)
@@ -117,17 +119,23 @@ class Group(nn.Module):
         self.fi.train()
         self.plus.train()
         self.scalaire.train()
-
+        losses=[]
         for i in range(epoch):
             optimizer.zero_grad()
             L1 = self.loss_1(X, Y)
             L2 = self.loss_2(alpha, X)
 
-            loss = L1 + L2 
-            print('Epoch {}/{} -\t Loss 1: {:.6f}\t Loss 2: {:.6f}\t Total Loss: {:.6f}'.format(i, epoch, L1.item(), L2.item(), loss.item()))
+            loss = L1 + L2
+            #loss = loss.mean()
+            if i % 10 == 0:
+               print('Epoch {}/{} -\t Loss 1: {:.6f}\t Loss 2: {:.6f}\t Total Loss: {:.6f}'.format(i, epoch, L1.item(), L2.item(), loss.item()))
             
             loss.backward(retain_graph=True)
+            losses.append(loss.item())
             optimizer.step()
+        return losses
+    def forward(self, x):
+        return self.fi(x)
             
             
             
@@ -141,8 +149,8 @@ def line(K): #a=2, b=3):
     Y = 0.3*torch.randn(K, 2).requires_grad_(False)
     alpha = torch.randn(K, 1).requires_grad_(False)
     epislon = 0.1
-    X[:,1] = X[:,0] + epislon * torch.sin(X[:,0]) # **3 + a*X[:,0] + b
-    Y[:,1] = Y[:,0] + epislon * torch.sin(Y[:,0]) #**3 + a*Y[:,0] + b
+    X[:,1] = X[:,0] + epislon * torch.sin(X[:,0] / epislon ) # **3 + a*X[:,0] + b
+    Y[:,1] = Y[:,0] + epislon * torch.sin(Y[:,0] / epislon) #**3 + a*Y[:,0] + b
     return X, Y, alpha
 #def dataset_parabola(K, a=0.5, b=0.5):
     #X = 0.3*torch.randn(K, 2).requires_grad_(False)
@@ -188,7 +196,7 @@ else:
     
 # Training datasets
 dim = 2
-K = 1000
+K = 200
 X = tc.rand(K, 2)
 Y = tc.rand(K, 2)
 alpha = tc.rand(K, 1)
@@ -202,17 +210,37 @@ fX = f(X)
 fY = f(Y)
 
 # on initalise le Groupe 
-G = Group(K, dim_E = dim, neurons = 32)
+G = Vect_space(K, dim_E = dim, neurons = 64)
 optimizer = optim.Adadelta(list(G.parameters()), lr=0.1)
 
-G.train(X, Y, alpha, optimizer, args.epochs)
+losses = G.train(X, Y, alpha, optimizer, args.epochs)
+#plt.plot(X[:, 0], X[:, 1], 'x', label='train X')
+#plt.plot(Y[:, 0], Y[:, 1], 'o', label='train Y')
+#plt.plot(losses);
+# Plot training data X
+plt.figure(figsize=(6, 4))
 plt.plot(X[:, 0], X[:, 1], 'x', label='train X')
+plt.title('Training Data X')
+plt.legend()
+plt.show()
+# Plot training data Y
+plt.figure(figsize=(6, 4))
 plt.plot(Y[:, 0], Y[:, 1], 'o', label='train Y')
+plt.title('Training Data Y')
+plt.legend()
+plt.show()
+# Plot losses
+plt.figure(figsize=(6, 4))
+plt.plot(losses)
+plt.title('Losses')
+plt.show()
 
-Xe = G.f(X)
+
+
+Xe = G.fi(G.f(X))
 if args.save_model:
     print('Saving model...')
-    torch.save(model.state_dict(), "nas_plus.pt")
+    torch.save(G.state_dict(), "nas_plus.pt")
 
 
 
