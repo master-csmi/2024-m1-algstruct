@@ -5,11 +5,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import torch as tc
-#from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 import matplotlib.pyplot as plt
 # f^theta
-
 
 
 class Morphism(nn.Module):
@@ -24,17 +22,20 @@ class Morphism(nn.Module):
         self.fc3 = nn.Linear(neurons, neurons)
         self.fc4 = nn.Linear(neurons, dim_E)
 
-        # dropout layer
     def forward(self, x):
         x = self.fc1(x)
         x = self.fc2(x)
         x = self.fc3(x)
         output = self.fc4(x)
         return output
+    
+    
+
+    
+
 # f inv theta
 class InverseMorphism(nn.Module):
     def __init__ (self, name = 'Inverse E --> R^n', dim_E = 1, neurons = 6):
-        
         print(f'[Model] name : {name}')
         print(f'[Model] dim E : {dim_E}')
         print(f'[Model] no. neurons per layers : {neurons}')
@@ -43,7 +44,6 @@ class InverseMorphism(nn.Module):
         self.fc1 = nn.Linear(dim_E, neurons)
         self.fc2 = nn.Linear(neurons, neurons)
         self.fc3= nn.Linear(neurons, neurons)
-        
         self.fc4 = nn.Linear(neurons, dim_E)
     def forward(self, x):
         x = self.fc1(x)
@@ -53,9 +53,13 @@ class InverseMorphism(nn.Module):
         return output
     
     
+    
+
+
+
+    
 class LoiBinaire(nn.Module):
     def __init__ (self, name = 'Loi binaire ExE-->E', dim_E = 1, neurons = 6):
-        
         print(f'[Model] name : {name}')
         print(f'[Model] dim E : {dim_E}')
         print(f'[Model] no. neurons per layers : {neurons}')
@@ -74,23 +78,19 @@ class LoiBinaire(nn.Module):
         return output
 # scalaire product of structure
 
+
 class LoiScalaire(nn.Module):
     def __init__ (self, name = 'Loi Scalaire RxE-->E', dim_E = 1, neurons = 6):
-        
         print(f'[Model] name : {name}')
         print(f'[Model] dim E : {dim_E}')
         print(f'[Model] no. neurons per layers : {neurons}')
         super(LoiScalaire, self).__init__()
         # layers for plus : KxE --> E
-        
-
         self.fc1 = nn.Linear(dim_E, neurons)
         self.fc2 = nn.Linear(neurons, neurons)
         self.fc3 = nn.Linear(neurons, neurons)
         self.fc4 = nn.Linear(neurons, dim_E)
-        
         # alpha est un  scalaire,  dim_E est la dimension de l'espace E
-        
     def forward(self, alpha, x):
         z = alpha * x # [K,1], [K,d] ---> [K, d]
         z = self.fc1(z)
@@ -100,8 +100,9 @@ class LoiScalaire(nn.Module):
         return output
     
     
+    
 class Vect_space(nn.Module):
-    def __init__ (self, K,  dim_E = 1 , neurons = 6 , name = 'Groupe (E,+)'):
+    def __init__ (self, K, dim_E = 1 , neurons = 6 , name = 'Groupe (E,+)'):
         super(Vect_space, self).__init__()
         self.f    = Morphism(dim_E = dim_E, neurons = neurons)
         self.fi   = InverseMorphism(dim_E = dim_E, neurons = neurons)
@@ -110,10 +111,8 @@ class Vect_space(nn.Module):
         # losses
         self.loss_1 = lambda x, y : torch.linalg.vector_norm(self.plus(x , y) - self.f( self.fi(x) + self.fi(y)) )**2
         self.loss_2 = lambda alpha, x : torch.linalg.vector_norm(self.scalaire(alpha , x) - self.f( alpha*self.fi(x)) )**2
-
-        #  Total loss can be weighted 
+        #  Total loss can be weighted
         self.loss = lambda x, y, alpha : self.loss_1(x, y) + self.loss_2(alpha, x)
-        
     def train(self, X, Y,alpha, optimizer, epoch):
         self.f.train()
         self.fi.train()
@@ -123,41 +122,37 @@ class Vect_space(nn.Module):
         for i in range(epoch):
             optimizer.zero_grad()
             L1 = self.loss_1(X, Y)
-            L2 = self.loss_2(alpha, X)
-
+            L2 = self.loss_2(alpha, X)#
             loss = L1 + L2
-            #loss = loss.mean()
+            loss = loss.sum()
             if i % 10 == 0:
-               print('Epoch {}/{} -\t Loss 1: {:.6f}\t Loss 2: {:.6f}\t Total Loss: {:.6f}'.format(i, epoch, L1.item(), L2.item(), loss.item()))
-            
+                print('Epoch {}/{} -\t Loss 1: {:.6f}\t Loss 2: {:.6f}\t Total Loss: {:.6f}'.format(i, epoch, L1.item(), L2.item(), loss.item()))
             loss.backward(retain_graph=True)
             losses.append(loss.item())
             optimizer.step()
         return losses
-    def forward(self, x):
-        return self.fi(x)
-            
-            
-            
-def test(self, test_loader):
-        pass
-
-# Dataset generation
-def line(K): #a=2, b=3):
     
-    X = 0.3*torch.randn(K, 2).requires_grad_(False)
-    Y = 0.3*torch.randn(K, 2).requires_grad_(False)
+    
+def test(self, test_loader):
+    pass
+        
+    
+    
+    
+    
+# Dataset generation
+def line(K, epsilon): 
+    X = torch.randn(K, 2).requires_grad_(False)
+    Y = torch.randn(K, 2).requires_grad_(False)
     alpha = torch.randn(K, 1).requires_grad_(False)
-    epislon = 0.1
-    X[:,1] = X[:,0] + epislon * torch.sin(X[:,0] / epislon ) # **3 + a*X[:,0] + b
-    Y[:,1] = Y[:,0] + epislon * torch.sin(Y[:,0] / epislon) #**3 + a*Y[:,0] + b
+    X[:,1] = X[:,0] + epsilon * torch.sin(X[:,0] / epsilon )
+    Y[:,1] = Y[:,0] + epsilon * torch.sin(Y[:,0] / epsilon)
+    
     return X, Y, alpha
-#def dataset_parabola(K, a=0.5, b=0.5):
-    #X = 0.3*torch.randn(K, 2).requires_grad_(False)
-    #Y = 0.3*torch.randn(K, 2).requires_grad_(False)
-    #X[:,1] = (X[:,0]-a)**3 + b
-    #Y[:,1] = (Y[:,0]-a)**3 + b
-    #return X, Y
+
+
+
+
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
 parser.add_argument('--batch-size', type=int, default=64, metavar='N',
@@ -182,7 +177,7 @@ parser.add_argument('--gamma', type=float, default=0.7, metavar='M',
 #                     help='how many batches to wait before logging training status')
 # parser.add_argument('--dry-run', action='store_true', default=False,
 #                     help='quickly check a single pass')
-args = parser.parse_args()
+args, unknown = parser.parse_known_args()
 torch.manual_seed(args.seed)
 use_cuda = not args.no_cuda and torch.cuda.is_available()
 use_mps = not args.no_mps and torch.backends.mps.is_available()
@@ -192,44 +187,101 @@ elif use_mps:
     device = torch.device("mps")
 else:
     device = torch.device("cpu")
-    
-    
+
+
+
+
+
+
+
 # Training datasets
+
+
+# dim = 2
+# K = 1000
+# X, Y, alpha = line(K)
+# G = Vect_space(K, dim_E = dim, neurons = 32 )
+# train_size = 500
+# indices = torch.randperm(K)
+
+# # on sépare les données en données d'entrainement et données de test
+# train_indices = indices[:train_size]
+# test_indices = indices[train_size:]
+# alpha_indices = indices[:train_size]
+
+
+# # on sélectionne maintenant les données d'entrainement et de test
+# X_train = X[train_indices]
+# Y_train = Y[train_indices]
+# alpha_train = alpha[alpha_indices]
+
+# # pour les données de test
+# X_test = X[test_indices]
+# Y_test = Y[test_indices]
+# alpha_test = alpha[test_indices]
+
+
+
+
+# on entraine le modèle
+# optimizer = optim.Adadelta(list(G.parameters()), lr=0.1)
+# losses = G.train(X, Y, alpha , optimizer, args.epochs)
+
+
+# plt.figure(figsize=(6, 4))
+# plt.plot(X_train[:, 0], X_train[:, 1], 'o', label='train X')
+# plt.title('Training Data X')
+# plt.xlim(left=0)  # Définit la limite inférieure de l'axe x à 0
+# plt.ylim(bottom=0)  # Définit la limite inférieure de l'axe y à 0
+# plt.legend()
+# plt.show()
+
+
+# plt.figure(figsize=(6, 4))
+# plt.plot(losses)
+# plt.title('Losses')
+# plt.show()
+
+
+# # testons le modèle avec les x_test et y_test
+# Xtest = G.f(G.fi(X_test))
+
+
+# Xtest = Xtest.detach().numpy() 
+
+
+# plt.figure(figsize=(6, 4))
+# plt.plot(Xtest[:,0], Xtest[:,1], '.', label="x-test")
+# plt.title('Test Data X')
+
+
+# plt.legend()
+# plt.show()
+
+
+
+
+
 dim = 2
-K = 200
-X = tc.rand(K, 2)
-Y = tc.rand(K, 2)
-alpha = tc.rand(K, 1)
-#X, Y, alpha = elliptic_curve(K)
-X, Y, alpha = line(K)
-beta = 1.0  # replace with your value of beta
-#f = tc.vmap(lambda X : X[0]**2)
+K = 1000
+epsilon = 0.1
 
-f = tc.vmap(lambda X : (1/beta) * tc.exp(X[0]))
-fX = f(X)
-fY = f(Y)
+V = Vect_space(K, dim_E = dim, neurons=32)
+# maintenant que le modèle a été entrainé 
 
-# on initalise le Groupe 
-G = Vect_space(K, dim_E = dim, neurons = 64)
-optimizer = optim.Adadelta(list(G.parameters()), lr=0.1)
 
-losses = G.train(X, Y, alpha, optimizer, args.epochs)
-#plt.plot(X[:, 0], X[:, 1], 'x', label='train X')
-#plt.plot(Y[:, 0], Y[:, 1], 'o', label='train Y')
-#plt.plot(losses);
-# Plot training data X
-plt.figure(figsize=(6, 4))
-plt.plot(X[:, 0], X[:, 1], 'x', label='train X')
-plt.title('Training Data X')
-plt.legend()
-plt.show()
-# Plot training data Y
-plt.figure(figsize=(6, 4))
-plt.plot(Y[:, 0], Y[:, 1], 'o', label='train Y')
-plt.title('Training Data Y')
-plt.legend()
-plt.show()
-# Plot losses
+
+# maintenant initalisons le jeu de données 
+X_train, Y_train, alpha  = line (K, epsilon)
+
+
+
+
+# on entraine le modèle
+optimizer = optim.Adadelta(list(V.parameters()), lr=0.1)
+losses = V.train(X_train, Y_train, alpha,  optimizer, args.epochs)
+
+
 plt.figure(figsize=(6, 4))
 plt.plot(losses)
 plt.title('Losses')
@@ -237,11 +289,50 @@ plt.show()
 
 
 
-Xe = G.fi(G.f(X))
+
+plt.figure(figsize=(6, 4))
+plt.plot(X_train[:,0], X_train[:,1], '.', label=("x+εsin(x/ε)"))
+
+plt.title('Graphique de x + εsin(x/ε)')
+
+plt.xlim(left=0)  # Définit la limite inférieure de l'axe x à 0
+plt.ylim(bottom=0)  # Définit la limite inférieure de l'axe y à 0
+
+
+X_t , _, _ = line(500, 0.1)
+# compare moi le X_t et le X_train 
+print(torch.equal(X_t, X_train))
+
+
+
+
+
+X_test = V.fi(X_t)  
+
+X_test = V.f(X_test) 
+
+
+X_test = X_test.detach().numpy()   # result 
+
+
+
+plt.figure(figsize=(6, 4))
+plt.plot(X_test[:,0], X_test[:,1], '+', label="x-test")
+plt.title('Test Data X')
+
+
+
+plt.legend()
+plt.show()
+
+
+
+
+
+# Xe = G.fi(X)
 if args.save_model:
     print('Saving model...')
-    torch.save(G.state_dict(), "nas_plus.pt")
-
+    torch.save(model.state_dict(), "nas_plus.pt")
 
 
 
