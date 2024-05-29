@@ -14,6 +14,7 @@
 \usepackage{hyperref}       % Pour les liens hypertextes
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{tabularx}
 \newtheorem{theorem}{Theorem}[section]
 
 % Titre du rapport
@@ -181,25 +182,17 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
             \end{figure}
 
         \subsection*{Third sub objectif : 3D case}
-        \subsection*{Third sub objectif : 3D case}
             Here, we will consider a dataset $V$ defined on a 2D surface.
 
         
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 \section{Mathematical setting}
-=======
-\section{Mathematical analysis}
->>>>>>> 290c6fe (Changes and New Result)
-=======
-\section{Mathematical analysis}
->>>>>>> 290c6fe (Changes and New Result)
+
     To address these objectives, we leverage
     the Pytorch library in Python using Neural Networks Learning to find the optimal parameters that minimize the loss function.\\
     We are also going to use also Git to share Code and collaborate on the project.\\ 
     We will also use slack for communication and sharing information.\\
 
-    As said in  First sub-Objective, if we consider An algebraic structure like a group, this is our we attack the problems, we transform the a group axioms into a loss to minimize we can define the losses as follows : 
     As said in  First sub-Objective, if we consider An algebraic structure like a group, this is our we attack the problems, we transform the a group axioms into a loss to minimize we can define the losses as follows : 
 
     \begin{enumerate}
@@ -250,11 +243,9 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
         \item Loss for vector addition:
         \[
             L_1(\theta) = \sum_{(x, y) \in V \times V} \left\lVert x \oplus y - \left(f(f^{-1}(x)) + f(f^{-1}(y))\right) \right\rVert_{V}^2
-            L_1(\theta) = \sum_{(x, y) \in V \times V} \left\lVert x \oplus y - \left(f(f^{-1}(x)) + f(f^{-1}(y))\right) \right\rVert_{V}^2
         \]
         \item Loss for scalar multiplication:
         \[
-            L_2(\theta) = \sum_{(\alpha, x) \in \mathbb{R} \times V} \left\lVert \alpha \odot x - f(\alpha \cdot f^{-1}(x)) \right\rVert_{V}^2
             L_2(\theta) = \sum_{(\alpha, x) \in \mathbb{R} \times V} \left\lVert \alpha \odot x - f(\alpha \cdot f^{-1}(x)) \right\rVert_{V}^2
         \]
     \end{enumerate}
@@ -265,11 +256,7 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
     \]
 
     We  precise that the norm $\left\lVert \cdot \right\rVert_{V}$ is the norm defined on the dataset $V$.
-    We  precise that the norm $\left\lVert \cdot \right\rVert_{V}$ is the norm defined on the dataset $V$.
 
-\section{Tools}
-    We use Neural Networks Learning to find the best couple that minimize the loss function $L(\theta)$.
-    We use the Pytorch library in Python to implement the algorithms and the Neural Networks Learning, and Git, slack to share and communicate on the project.
 \section{Tools}
     We use Neural Networks Learning to find the best couple that minimize the loss function $L(\theta)$.
     We use the Pytorch library in Python to implement the algorithms and the Neural Networks Learning, and Git, slack to share and communicate on the project.
@@ -317,10 +304,6 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
                         surface have 2 dimensions, the abscissa and the ordinate.
                 \item The Number of Epochs = 1000  to train the model.
                 \item The learning rate = 1e-3
-                \item  $dim_E = 2$ like the dataset is defined on a 2D 
-                        surface have 2 dimensions, the abscissa and the ordinate.
-                \item The Number of Epochs = 1000  to train the model.
-                \item The learning rate = 1e-3
             \end{itemize}
         % -----------------------------
         \subsubsection{Results}
@@ -330,13 +313,10 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
                 \centering
                 \begin{tabular}{|c|c|c|c|}
                 \hline
-                Epoch & L_{1} & L_{2} & L = L_{1} + L_{2} \\
+
+                Epoch & $L_{1}$ & $L_{2}$ & $L = L_{1} + L_{2}$ \\
+
                 \hline
-                0/1000 & 27.517923 & 27.298063 & 54.815987 \\
-                200/1000 & 7.004137 & 2.402620 & 9.406757 \\
-                400/1000 & 0.815794 & 0.108183 & 0.923977 \\
-                600/1000 & 0.027651 & 0.014956 & 0.042607 \\
-                800/1000 & 0.020693 & 0.014033 & 0.034726 \\
                 0/1000 & 27.517923 & 27.298063 & 54.815987 \\
                 200/1000 & 7.004137 & 2.402620 & 9.406757 \\
                 400/1000 & 0.815794 & 0.108183 & 0.923977 \\
@@ -344,8 +324,6 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
                 800/1000 & 0.020693 & 0.014033 & 0.034726 \\
                 \hline
                 \end{tabular}
-                \caption{Training results with 64 neurons per layer for the Loss}
-
                 \caption{Training results with 64 neurons per layer for the Loss}
 
             \end{table}
@@ -376,15 +354,7 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
                 \centering
                 \begin{tabular}{|c|c|c|c|c|}
                 \hline
-<<<<<<< HEAD
-<<<<<<< HEAD
-                B\_x & B\_y & C\_x & C\_y & \alpha \\
-=======
-                B\_x & B\_y & C\_x & C\_y & alpha \\
->>>>>>> 290c6fe (Changes and New Result)
-=======
-                B\_x & B\_y & C\_x & C\_y & alpha \\
->>>>>>> 290c6fe (Changes and New Result)
+                B\_x & B\_y & C\_x & C\_y & $\alpha$ \\
                 \hline
                 -0.801354 & -0.900084 & -0.358002 & -0.315550 & 0.1384 \\
                 -0.475507 & -0.375598 & -0.077409 & -0.147315 & 0.6890 \\
@@ -404,15 +374,7 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
 
             \begin{tabular}{|c|c|c|}
                 \hline
-<<<<<<< HEAD
-<<<<<<< HEAD
-                f(f^{-1}(B) + f^{-1}(C)) & B$\oplus$C & L^2 Erreur  \\
-=======
-                f.fi(B) + f.fi(C) & B$\oplus$C & Erreur \\
->>>>>>> 290c6fe (Changes and New Result)
-=======
-                f.fi(B) + f.fi(C) & B$\oplus$C & Erreur \\
->>>>>>> 290c6fe (Changes and New Result)
+                $f(f^{-1}(B) + f^{-1}(C))$ & B$\oplus$C & $L^2 Erreur$  \\
                 \hline
                 0.009636102, -0.1696734 & 0.008442776, -0.16858363 & 1.6e-03 \\
                 0.011397708, -0.17639658 & 0.007390147, -0.17639616 & 4.0e-03 \\
@@ -421,36 +383,18 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
                 0.009761432, -0.17229007 & 0.0035657752, -0.16988468 & 6.6e-03 \\
                 \hline
             \end{tabular}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 290c6fe (Changes and New Result)
-            \\
-            \\
-            $f$ is the morphism \\
-            $fi$ is the inverse morphism.
-<<<<<<< HEAD
->>>>>>> 290c6fe (Changes and New Result)
-=======
->>>>>>> 290c6fe (Changes and New Result)
+
 
             % -----------------------------
             Let see illustrate the results by a figure :
             \begin{figure}[h]
                 \centering
                 \begin{minipage}{0.5\textwidth}
-                \begin{minipage}{0.5\textwidth}
                     \centering
                     \includegraphics[width=0.9\linewidth]{./images/1.png}
                 \end{minipage}%
                 \begin{minipage}{0.5\textwidth}
-                    \includegraphics[width=0.9\linewidth]{./images/1.png}
-                \end{minipage}%
-                \begin{minipage}{0.5\textwidth}
                     \centering
-                    \includegraphics[width=0.9\linewidth]{./images/2.png}
-                \end{minipage}
                     \includegraphics[width=0.9\linewidth]{./images/2.png}
                 \end{minipage}
             \end{figure}
@@ -487,15 +431,7 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
 
             \begin{tabular}{|c|c|c|}
                 \hline
-<<<<<<< HEAD
-<<<<<<< HEAD
-                f(\alpha . fi(B)) & \alpha \odot B & L^2 erreur \\
-=======
-                f(alpha * fi(B)) & alpha * B & Erreur \\
->>>>>>> 290c6fe (Changes and New Result)
-=======
-                f(alpha * fi(B)) & alpha * B & Erreur \\
->>>>>>> 290c6fe (Changes and New Result)
+                $f(\alpha . fi(B))$ & $\alpha \odot B$ & $L^2 erreur$ \\
                 \hline
                 0.073016845, 0.07753995 & 0.07003992, 0.0773815 & 3.0e-03 \\
                 0.07220963, 0.07294881 & 0.06926333, 0.07280513 & 2.9e-03 \\
@@ -546,16 +482,9 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
         \newpage
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         \textbf{As conclusion, we see that the error between the Direct Sum and the morphism of the sum of the inverse morphism is to ordre 3, and the error between the scalar multiplication and the morphism of the scalar multiplication of the inverse morphism is also to ordre 3 . This means that the model is effectively learning the properties of the vector space and accurately reproducing the binary operations defined on the dataset.\\
-=======
-        \textbf{As conclusion, we see that the error between the Direct Sum and the morphism of the sum of the inverse morphism is very small, and the error between the scalar multiplication and the morphism of the scalar multiplication of the inverse morphism is also very small. This means that the model is effectively learning the properties of the vector space and accurately reproducing the binary operations defined on the dataset.\\
->>>>>>> 290c6fe (Changes and New Result)
-=======
-        \textbf{As conclusion, we see that the error between the Direct Sum and the morphism of the sum of the inverse morphism is very small, and the error between the scalar multiplication and the morphism of the scalar multiplication of the inverse morphism is also very small. This means that the model is effectively learning the properties of the vector space and accurately reproducing the binary operations defined on the dataset.\\
->>>>>>> 290c6fe (Changes and New Result)
-        So we can conclude that (V, $\oplus$, $\odot$) is a vector space with an algebraic structure.}
+        So we conclude that $(V,\oplus,\odot)$ is a vector space with an algebraic structure.}
 
 
 \section{General Manifolds}
