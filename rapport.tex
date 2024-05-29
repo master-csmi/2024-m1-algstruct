@@ -181,6 +181,7 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
             \end{figure}
 
         \subsection*{Third sub objectif : 3D case}
+        \subsection*{Third sub objectif : 3D case}
             Here, we will consider a dataset $V$ defined on a 2D surface.
 
         
@@ -194,6 +195,7 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
     We are also going to use also Git to share Code and collaborate on the project.\\ 
     We will also use slack for communication and sharing information.\\
 
+    As said in  First sub-Objective, if we consider An algebraic structure like a group, this is our we attack the problems, we transform the a group axioms into a loss to minimize we can define the losses as follows : 
     As said in  First sub-Objective, if we consider An algebraic structure like a group, this is our we attack the problems, we transform the a group axioms into a loss to minimize we can define the losses as follows : 
 
     \begin{enumerate}
@@ -244,9 +246,11 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
         \item Loss for vector addition:
         \[
             L_1(\theta) = \sum_{(x, y) \in V \times V} \left\lVert x \oplus y - \left(f(f^{-1}(x)) + f(f^{-1}(y))\right) \right\rVert_{V}^2
+            L_1(\theta) = \sum_{(x, y) \in V \times V} \left\lVert x \oplus y - \left(f(f^{-1}(x)) + f(f^{-1}(y))\right) \right\rVert_{V}^2
         \]
         \item Loss for scalar multiplication:
         \[
+            L_2(\theta) = \sum_{(\alpha, x) \in \mathbb{R} \times V} \left\lVert \alpha \odot x - f(\alpha \cdot f^{-1}(x)) \right\rVert_{V}^2
             L_2(\theta) = \sum_{(\alpha, x) \in \mathbb{R} \times V} \left\lVert \alpha \odot x - f(\alpha \cdot f^{-1}(x)) \right\rVert_{V}^2
         \]
     \end{enumerate}
@@ -257,7 +261,11 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
     \]
 
     We  precise that the norm $\left\lVert \cdot \right\rVert_{V}$ is the norm defined on the dataset $V$.
+    We  precise that the norm $\left\lVert \cdot \right\rVert_{V}$ is the norm defined on the dataset $V$.
 
+\section{Tools}
+    We use Neural Networks Learning to find the best couple that minimize the loss function $L(\theta)$.
+    We use the Pytorch library in Python to implement the algorithms and the Neural Networks Learning, and Git, slack to share and communicate on the project.
 \section{Tools}
     We use Neural Networks Learning to find the best couple that minimize the loss function $L(\theta)$.
     We use the Pytorch library in Python to implement the algorithms and the Neural Networks Learning, and Git, slack to share and communicate on the project.
@@ -305,6 +313,10 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
                         surface have 2 dimensions, the abscissa and the ordinate.
                 \item The Number of Epochs = 1000  to train the model.
                 \item The learning rate = 1e-3
+                \item  $dim_E = 2$ like the dataset is defined on a 2D 
+                        surface have 2 dimensions, the abscissa and the ordinate.
+                \item The Number of Epochs = 1000  to train the model.
+                \item The learning rate = 1e-3
             \end{itemize}
         % -----------------------------
         \subsubsection{Results}
@@ -321,8 +333,15 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
                 400/1000 & 0.815794 & 0.108183 & 0.923977 \\
                 600/1000 & 0.027651 & 0.014956 & 0.042607 \\
                 800/1000 & 0.020693 & 0.014033 & 0.034726 \\
+                0/1000 & 27.517923 & 27.298063 & 54.815987 \\
+                200/1000 & 7.004137 & 2.402620 & 9.406757 \\
+                400/1000 & 0.815794 & 0.108183 & 0.923977 \\
+                600/1000 & 0.027651 & 0.014956 & 0.042607 \\
+                800/1000 & 0.020693 & 0.014033 & 0.034726 \\
                 \hline
                 \end{tabular}
+                \caption{Training results with 64 neurons per layer for the Loss}
+
                 \caption{Training results with 64 neurons per layer for the Loss}
 
             \end{table}
@@ -403,11 +422,17 @@ The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \od
             \begin{figure}[h]
                 \centering
                 \begin{minipage}{0.5\textwidth}
+                \begin{minipage}{0.5\textwidth}
                     \centering
                     \includegraphics[width=0.9\linewidth]{./images/1.png}
                 \end{minipage}%
                 \begin{minipage}{0.5\textwidth}
+                    \includegraphics[width=0.9\linewidth]{./images/1.png}
+                \end{minipage}%
+                \begin{minipage}{0.5\textwidth}
                     \centering
+                    \includegraphics[width=0.9\linewidth]{./images/2.png}
+                \end{minipage}
                     \includegraphics[width=0.9\linewidth]{./images/2.png}
                 \end{minipage}
             \end{figure}
