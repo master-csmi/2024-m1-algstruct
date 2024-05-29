@@ -14,6 +14,7 @@
 \usepackage{hyperref}       % Pour les liens hypertextes
 \usepackage{listings}
 \usepackage{xcolor}
+\newtheorem{theorem}{Theorem}[section]
 
 % Titre du rapport
 \title{The Discovery of an  Algebraic structure}
@@ -117,16 +118,19 @@
         \\
         The Best way that we choose to attack the problem  is to consider a function $f$ that can map the binary operations defined on $V$ to a binary operation defined on $\mathbb{R}$ that satisfy these two conditions:
         \\
-        Let consider a set of points  $ V $ and let  $ f: R \rightarrow V $ a one-to-one
-        function from $R$ into a codomain $V$. We define two binary operations $\oplus$ and $\odot$ on $V$ as follows:
-        $ x \oplus y = f(f^{-1}(x) + f^{-1}(y)) $
-        \\
-        $ \alpha \odot x = f(  \alpha.f^{-1}(x)) $
-
-
-        Then if we can find a couple of functions $f$ and $f^{-1}$ that satisfy these conditions, we can deduce that $(V, \oplus, \odot)$ is a Vector space with an Algebraic structure.
-        
-        
+        \begin{theorem}
+         \rm{Let $\mathbb{R}$ be the field of real numbers and let $f: \mathbb{R} \rightarrow V$ be a one-to-one function from $\mathbb{R}$ onto a codomain $V$. If we define vector addition by
+$$
+x \oplus y=f\left(f^{-1}(x)+f^{-1}(y)\right)
+$$
+and scalar multiplication by
+$$
+\alpha \odot x=f\left(\alpha \cdot f^{-1}(x)\right)
+$$
+for all $x$ and $y$ in $V$ and all $\alpha$ in $\mathbb{R}$, then the set $V$, together with the operations $\oplus$ and $\odot$, form a vector space over the field of real numbers.
+The real vector space $V$ is sometimes denoted more formally by $(V, \oplus, \odot)$.}
+        \end{theorem}
+       
 
         \begin{Example}[Trivial Example]
             Let f be a function from $R$ to $Vect{(e_1)}$ such that $f(x) = x.e_1$.
@@ -180,7 +184,7 @@
             Here, we will consider a dataset $V$ defined on a 2D surface.
 
         
-\section{Mathematical analysis}
+\section{Mathematical setting}
     To address these objectives, we leverage
     the Pytorch library in Python using Neural Networks Learning to find the optimal parameters that minimize the loss function.\\
     We are also going to use also Git to share Code and collaborate on the project.\\ 
@@ -281,7 +285,7 @@
     \end{enumerate}
 
 
-\section{Almost affine Manifolds}
+\section{Numerical Experiments}
     We choose to consider a dataset  which is almost an affine manifold because, in this case, we can easily evaluate the distance between two points on the dataset based on the norm defined on $\mathbb{R}$. It is the first easiest way to tackle the problem and to understand the behavior of the model.\\
     And also we can use the binary operations defined on the dataset to define the binary operations on $\mathbb{R}$.
 
@@ -306,7 +310,7 @@
                 \centering
                 \begin{tabular}{|c|c|c|c|}
                 \hline
-                Epoch & Loss 1 & Loss 2 & Total Loss \\
+                Epoch & L_{1} & L_{2} & L = L_{1} + L_{2} \\
                 \hline
                 0/1000 & 27.517923 & 27.298063 & 54.815987 \\
                 200/1000 & 7.004137 & 2.402620 & 9.406757 \\
@@ -345,7 +349,7 @@
                 \centering
                 \begin{tabular}{|c|c|c|c|c|}
                 \hline
-                B\_x & B\_y & C\_x & C\_y & alpha \\
+                B\_x & B\_y & C\_x & C\_y & \alpha \\
                 \hline
                 -0.801354 & -0.900084 & -0.358002 & -0.315550 & 0.1384 \\
                 -0.475507 & -0.375598 & -0.077409 & -0.147315 & 0.6890 \\
@@ -365,7 +369,7 @@
 
             \begin{tabular}{|c|c|c|}
                 \hline
-                f.fi(B) + f.fi(C) & B$\oplus$C & Erreur \\
+                f(f^{-1}(B) + f^{-1}(C)) & B$\oplus$C & L^2 Erreur  \\
                 \hline
                 0.009636102, -0.1696734 & 0.008442776, -0.16858363 & 1.6e-03 \\
                 0.011397708, -0.17639658 & 0.007390147, -0.17639616 & 4.0e-03 \\
@@ -374,10 +378,6 @@
                 0.009761432, -0.17229007 & 0.0035657752, -0.16988468 & 6.6e-03 \\
                 \hline
             \end{tabular}
-            \\
-            \\
-            $f$ is the morphism \\
-            $fi$ is the inverse morphism.
 
             % -----------------------------
             Let see illustrate the results by a figure :
@@ -425,7 +425,7 @@
 
             \begin{tabular}{|c|c|c|}
                 \hline
-                f(alpha * fi(B)) & alpha * B & Erreur \\
+                f(\alpha . fi(B)) & \alpha \odot B & L^2 erreur \\
                 \hline
                 0.073016845, 0.07753995 & 0.07003992, 0.0773815 & 3.0e-03 \\
                 0.07220963, 0.07294881 & 0.06926333, 0.07280513 & 2.9e-03 \\
@@ -476,7 +476,7 @@
         \newpage
 
 
-        \textbf{As conclusion, we see that the error between the Direct Sum and the morphism of the sum of the inverse morphism is very small, and the error between the scalar multiplication and the morphism of the scalar multiplication of the inverse morphism is also very small. This means that the model is effectively learning the properties of the vector space and accurately reproducing the binary operations defined on the dataset.\\
+        \textbf{As conclusion, we see that the error between the Direct Sum and the morphism of the sum of the inverse morphism is to ordre 3, and the error between the scalar multiplication and the morphism of the scalar multiplication of the inverse morphism is also to ordre 3 . This means that the model is effectively learning the properties of the vector space and accurately reproducing the binary operations defined on the dataset.\\
         So we can conclude that (V, $\oplus$, $\odot$) is a vector space with an algebraic structure.}
 
 
