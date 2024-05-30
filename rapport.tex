@@ -41,7 +41,6 @@
 \section{Introduction}
 
 
-
 Many differential equations encountered 
 in solving have parametric solutions.
 Thus, to find the solution for each 
@@ -286,7 +285,7 @@ In this example, the parameter $\lambda$ affects the behavior of the solution fu
     \begin{enumerate}
         \item Loss for vector addition:
         \[
-            L_1(\theta) = \sum_{(x, y) \in V \times V} \left\lVert x \oplus y - \left(f(f^{-1}(x)) + f(f^{-1}(y))\right) \right\rVert_{V}^2
+            L_1(\theta) = \sum_{(x, y) \in V \times V} \left\lVert x \oplus y - f(f^{-1}(x)) + (f^{-1}(y)) \right\rVert_{V}^2
         \]
         \item Loss for scalar multiplication:
         \[
@@ -432,7 +431,7 @@ In this example, the parameter $\lambda$ affects the behavior of the solution fu
             \begin{center}
                 \begin{tabular}{|c|c|c|c|c|}
                 \hline
-                $(x_i, y_i)$ & $f(f^{-1}(B) + f^{-1}(C))$ & $B\oplus C$ & $Erreur L^2$ & $Erreur  inf$ \\
+                $(x_i, y_i)$ & $f_{\theta}(f_{\theta}^{-1}(B) + f_{\theta}^{-1}(C))$ & $B\oplus_{\theta} C$ & $Erreur L^2$ & $Erreur  inf$ \\
                 \hline
                 $(x_1, y_1)$ & $(0.025816463, -0.064952835)$ & $(0.027578719, -0.06542145)$ & $1.8e-03$ & $1.5e-03$ \\
                 $(x_2, y_2)$ & $(0.025946498, -0.06484896)$ & $(0.025081158, -0.068941236)$ & $4.2e-03$ & $2.7e-03$ \\
@@ -481,7 +480,7 @@ In this example, the parameter $\lambda$ affects the behavior of the solution fu
 
             \begin{tabular}{|c|c|c|c|c|c|}
                 \hline
-                $(x_i, y_i)$  & $B \odot C$ & $f(\alpha . f^{-1}(B))$ & $L^2 erreur$ & inf erreur \\
+                $(x_i, y_i)$  & $ \alpha \odot_{\theta} B$ & $f_{\theta}(\alpha . f_{\theta}^{-1}(B))$ & $L^2 erreur$ & inf erreur \\
                 \hline
                 $(x_1, y_1)$ & [-0.048860528, 0.040740483] & [-0.047611155, 0.0386376] & 2.4e-03 & 2.1e-03 \\
                 $(x_2, y_2)$ &  [-0.048876982, 0.041265447] & [-0.047042675, 0.03864859] & 3.2e-03 & 2.6e-03 \\
