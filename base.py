@@ -7,137 +7,208 @@ import torch.optim as optim
 import torch as tc
 #from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
-
+import random
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 
 # f^theta
 class Morphism(nn.Module):
-
-    def __init__(self, name = 'Morphisme R^n --> E', dim_E = 1, neurons = 6):
-
+    def __init__ (self, name = 'Morphisme R^n --> E', dim_E = 1, neurons = 6):
         print(f'[Model] name : {name}')
         print(f'[Model] dim E : {dim_E}')
         print(f'[Model] no. neurons per layers : {neurons}')
-
         super(Morphism, self).__init__()
-
         # layers for plus : E --> E
         self.fc1 = nn.Linear(dim_E, neurons)
         self.fc2 = nn.Linear(neurons, neurons)
-        self.fc3 = nn.Linear(neurons, dim_E)
+        self.fc3 = nn.Linear(neurons, neurons)
+        self.fc4 = nn.Linear(neurons, dim_E)
 
+        # dropout layer
     def forward(self, x):
         x = self.fc1(x)
         x = self.fc2(x)
-        output = self.fc3(x)
+        x = self.fc3(x)
+        output = self.fc4(x)
         return output
 
 # f inv theta
 class InverseMorphism(nn.Module):
-
-    def __init__(self, name = 'Inverse E --> R^n', dim_E = 1, neurons = 6):
-
+    def __init__ (self, name = 'Inverse E --> R^n', dim_E = 1, neurons = 6):
+        
         print(f'[Model] name : {name}')
         print(f'[Model] dim E : {dim_E}')
         print(f'[Model] no. neurons per layers : {neurons}')
-
         super(InverseMorphism, self).__init__()
-
         # layers for plus : E --> E
         self.fc1 = nn.Linear(dim_E, neurons)
         self.fc2 = nn.Linear(neurons, neurons)
-        self.fc3 = nn.Linear(neurons, dim_E)
-
+        self.fc3= nn.Linear(neurons, neurons)
+        
+        self.fc4 = nn.Linear(neurons, dim_E)
     def forward(self, x):
         x = self.fc1(x)
         x = self.fc2(x)
-        output = self.fc3(x)
+        x = self.fc3(x)
+        output = self.fc4(x)
         return output    
-
+# La somme direct
 class LoiBinaire(nn.Module):
-    
-    def __init__(self, name = 'Loi binaire ExE-->E', dim_E = 1, neurons = 6):
-
+    def __init__ (self, name = 'Loi binaire ExE-->E', dim_E = 1, neurons = 6):
+        
         print(f'[Model] name : {name}')
         print(f'[Model] dim E : {dim_E}')
         print(f'[Model] no. neurons per layers : {neurons}')
-        
         super(LoiBinaire, self).__init__()
-
         # layers for plus : ExE --> E
         self.fc1 = nn.Linear(2 * dim_E, neurons)
         self.fc2 = nn.Linear(neurons, neurons)
-        self.fc3 = nn.Linear(neurons, dim_E)
-
+        self.fc3 = nn.Linear(neurons, neurons)
+        self.fc4 = nn.Linear(neurons, dim_E)
     def forward(self, x, y):
         z = torch.cat([x,y], axis=1) # [K,d], [K,d] ---> [K, 2*d]
         z = self.fc1(z)
         z = self.fc2(z)
-        output = self.fc3(z)        
+        z = self.fc3(z)
+        output = self.fc4(z)
         return output
-
-class Group(nn.Module):
-
-    def __init__(self, K,  dim_E = 2, neurons = 6, name = 'Groupe (E,+)'):
+# scalaire product of structure
+# Le scalaire diect
+class LoiScalaire(nn.Module):
+    def __init__ (self, name = 'Loi Scalaire RxE-->E', dim_E = 1, neurons = 6):
         
-        super(Group, self).__init__()
+        print(f'[Model] name : {name}')
+        print(f'[Model] dim E : {dim_E}')
+        print(f'[Model] no. neurons per layers : {neurons}')
+        super(LoiScalaire, self).__init__()
+        # layers for scaler : KxE --> E
+        
 
+        self.fc1 = nn.Linear(dim_E, neurons)
+        self.fc2 = nn.Linear(neurons, neurons)
+        self.fc3 = nn.Linear(neurons, neurons)
+        self.fc4 = nn.Linear(neurons, dim_E)
+        
+        # alpha est un  scalaire,  dim_E est la dimension de l'espace E
+        
+    def forward(self, alpha, x):
+        z = alpha * x # [K,1], [K,d] ---> [K, d]
+        z = self.fc1(z)
+        z = self.fc2(z)
+        z = self.fc3(z)
+        output = self.fc4(z)
+        return output
+    # le groupe
+class Vect_space(nn.Module):
+    def __init__ (self, K,  dim_E = 1 , neurons = 6 , name = 'Groupe (E,+)'):
+        super(Vect_space, self).__init__()
         self.f    = Morphism(dim_E = dim_E, neurons = neurons)
         self.fi   = InverseMorphism(dim_E = dim_E, neurons = neurons)
-        self.plus = LoiBinaire(dim_E = dim_E, neurons = neurons)        
-
+        self.plus = LoiBinaire(dim_E = dim_E, neurons = neurons)
+        self.scalaire = LoiScalaire(dim_E = dim_E, neurons = neurons)
         # losses
-        self.loss_1 = lambda x, y : torch.linalg.vector_norm(x + y - self.fi( self.plus(self.f(x), self.f(y)) ))**2
-        self.loss_2 = lambda x, y : torch.linalg.vector_norm(x - self.fi( self.f(x) ))**2 + torch.linalg.vector_norm(y - self.fi( self.f(y) ))**2
+        self.loss_1 = lambda x, y : torch.linalg.vector_norm(self.plus(x , y) - self.f( self.fi(x) + self.fi(y)) )**2
+        self.loss_2 = lambda alpha, x : torch.linalg.vector_norm(self.scalaire(alpha , x) - self.f( alpha*self.fi(x)) )**2
+
+        #  Total loss can be weighted 
+        self.loss = lambda x, y, alpha : self.loss_1(x, y) + self.loss_2(alpha, x)
         
-
-        # Total loss (can be weighted)
-        self.loss       = lambda x,y:  self.loss_1(x) + self.loss_2(x)
-
-    def train(self, X, Y, optimizer, epoch):
-
+    def train(self, X, Y,alpha, optimizer, epoch):
         self.f.train()
         self.fi.train()
         self.plus.train()
-
-        # plt.ion()
-        # figure = plt.figure()
-        # ax = figure.add_subplot(111)        
-        # ax.plot(X[:,0], X[:,1], 'X', label='X')
-        #ax.plot(self.zero.data, 'ro')
-        #ax[0,1].plot(Y[:,0], Y[:,1], 'Y', label='Y')
-        #ax[0,2].plot(Z[:,0], Z[:,1], 'Z', label='Z')
-        
+        self.scalaire.train()
+        losses=[]
         for i in range(epoch):
-
-            optimizer.zero_grad()
             L1 = self.loss_1(X, Y)
-            L2 = self.loss_2(X, Y)
+            L2 = self.loss_2(alpha, X)
+            loss = L1 + L2
+            #loss = loss.mean()
+            if i % 200 == 0:
+               print('Epoch {}/{} -\t Loss 1: {:.6f}\t Loss 2: {:.6f}\t Total Loss: {:.6f}'.format(i, epoch, L1.item(), L2.item(), loss.item()))
             
-            loss = L1 + L2 
-            if i % 10 == 0:
-                print('Epoch {}/{} -\t Loss 1: {:.6f}\t Loss 2: {:.6f}\t Total: {:.6f}'
-                      .format(i, epoch, L1.item(), L2.item(), loss.item()))
-                
             loss.backward(retain_graph=True)
             optimizer.step()
+            optimizer.zero_grad()
+            losses.append(loss.item())
+        return losses
             
         
-    def test(self, test_loader):
-        pass
+    def test(self, test_loader,X):
+        B,C,alpha = test_loader()
+        print('test data')
+        for i in range(B.shape[0]):
+            print('B[{}]: ({:.6f}, {:.6f})\t C[{}]: ({:.6f}, {:.6f})\t alpha[{}]: {:.6f}'.format(i, B[i,0].item(), B[i,1].item(), i, C[i,0].item(), C[i,1].item(), i, alpha[i].item()))
 
+        # Générer une valeur aléatoire pour B[0,0]
+        XXBC =  G.f(G.fi(B) + G.fi(C))
+        YYBC = G.plus(B, C)
+        PXBC =  G.f(alpha * G.fi(C))
+        PYBC = G.scalaire(B, C)
+        Sum_erreur_list_l2 = [torch.norm(XXBC[i] - YYBC[i], p=2).item() for i in range(len(XXBC))]
+        Sum_erreur_list_inf = [torch.norm(XXBC[i] - YYBC[i], p=float('inf')).item() for i in range(len(XXBC))]
+        dot_erreur_list_l2 = [torch.norm(PXBC[i] - PYBC[i], p=2).item() for i in range(len(XXBC))]
+        dot_erreur_list_inf = [torch.norm(PXBC[i] - PYBC[i], p=float('inf')).item() for i in range(len(XXBC))]
 
+        print('resultat test of sum')
+        for i in range(XXBC.shape[0]):
+            print('$f(f^{{-1}}(B) + f^{{-1}}(C) )$: ({:.6f}, {:.6f})\t $B ⊕ C$: ({:.6f}, {:.6f})\t L2 Error: {:.6e}\t Inf Error: {:.6e}'.format(XXBC[i,0].item(), XXBC[i,1].item(), YYBC[i,0].item(), YYBC[i,1].item(), Sum_erreur_list_l2[i], Sum_erreur_list_inf[i]))
+        print('resultat test of dot')
+        for i in range(PYBC.shape[0]):
+            print('$f(alpha * f^{{-1}}(C) )$: ({:.6f}, {:.6f})\t $ alpha ⊙ C$: ({:.6f}, {:.6f})\t L2 Error: {:.6e}\t Inf Error: {:.6e}'.format(PXBC[i,0].item(), PXBC[i,1].item(), PYBC[i,0].item(), PYBC[i,1].item(), dot_erreur_list_l2[i], dot_erreur_list_inf[i]))
+        # plot sum 
+        indice = random.sample(range(B.shape[0]),5)
+        for i in indice:
+            plt.figure()
+            plt.plot(X[:, 0], X[:, 1], '.', linewidth = 0.01) 
+            plt.plot(B[i, 0], B[i, 1],   'x', color='red',  label=r'$B_{' + str(i+1) + '}$')  
+            plt.annotate(r'$B_{' + str(i+1) + '}$', (B[i, 0], B[i, 1] - 0.01))
+            plt.plot(C[i, 0], C[i, 1], 'x',  color='black', label=r'$C_{' + str(i+1) + '}$', )
+            plt.annotate(r'$C_{' + str(i+1) + '}$', (C[i, 0], C[i, 1] + 0.01))
+            # Tracer le point XXBC[i]
+            plt.plot(XXBC[i, 0].detach().numpy(), XXBC[i, 1].detach().numpy(), 'o', color='yellow', label=r'f($f^{-1}(B) + f^{-1}(C)$)')
+            plt.annotate(r'f($f^{-1}(B) + f^{-1}(C)$)', (XXBC[i, 0].detach().numpy(), XXBC[i, 1].detach().numpy() - 0.1))
+
+            # Tracer le point YYBC[i]
+            plt.plot(YYBC[i, 0].detach().numpy(), YYBC[i, 1].detach().numpy(), 'x', color='purple', label=r'$B \oplus C$')
+            plt.annotate(r'$B \oplus C$', (YYBC[i, 0].detach().numpy(), YYBC[i, 1].detach().numpy() + 0.01))
+            # Ajouter une légende au subplot    
+
+            plt.title(r'$B_{' + str(i+1) + '}$' + f': ({B[i, 0]:.3f}, {B[i, 1]:.3f}), ' + r'$C_{' + str(i+1) + '}$' + f': ({C[i, 0]:.3f}, {C[i, 1]:.3f})', fontsize=10)
+            plt.legend()
+            plt.show()
+            plt.close()
+            # plot dot
+            for i in indice:
+                plt.figure()
+                plt.plot(X[:, 0], X[:, 1], '.', linewidth = 0.01) 
+                plt.plot(B[i, 0], B[i, 1],   'x', color='red',  label=f'B_{i+1}')  
+                plt.annotate(f'B_{i+1}', (B[i, 0], B[i, 1] - 0.01))
+                # Tracer le point XXBC[i]
+                plt.plot(PXBC[i, 0].detach().numpy(), PXBC[i, 1].detach().numpy(), 'o', color='yellow', label=r'f($\alpha \cdot f^{-1}(B)$)')
+                plt.annotate(r'f($\alpha \cdot f^{-1}(B)$)', (XXBC[i, 0].detach().numpy(), XXBC[i, 1].detach().numpy() - 0.1))
+
+                # Tracer le point YYBC[i]
+                plt.plot(PXBC[i, 0].detach().numpy(), PXBC[i, 1].detach().numpy(), 'x', color='purple', label=r'$\alpha \odot B$')
+                plt.annotate(r'$\alpha \odot B$', (PYBC[i, 0].detach().numpy(), PYBC[i, 1].detach().numpy() + 0.01))
+                # Ajouter une légende au subplot    
+                plt.title(f'Pour B_{i+1}: ({B[i, 0].item():.3f}, {B[i, 1].item():.3f}), α = {alpha[i].item():.3f}', fontsize=10)
+                plt.legend()
+                plt.show()
+                plt.close()
+            
+            
 # Dataset generation
 
-def dataset_parabola(K, a=0.5, b=0.5):
-
-    X = 0.3*torch.randn(K, 2).requires_grad_(False)
-    Y = 0.3*torch.randn(K, 2).requires_grad_(False)
-
-    X[:,1] = (X[:,0]-a)**3 + b
-    Y[:,1] = (Y[:,0]-a)**3 + b    
-    
-    return X, Y
+def line(K, epsilon):
+    X = torch.rand(K, 2).requires_grad_(False)
+    X[K//2:] *= -1
+    Y = torch.randn(K, 2).requires_grad_(False)
+    Y[K//2:] *= -1
+    alpha = torch.randn(K, 1).requires_grad_(False)
+    X[:,1] = X[:,0] + epsilon * torch.sin(X[:,0] / epsilon)
+    Y[:,1] = Y[:,0] + epsilon * torch.sin(Y[:,0] / epsilon)
+    return X, Y, alpha
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
@@ -180,30 +251,46 @@ else:
     device = torch.device("cpu")
 
 # Training datasets
+
+K = 2000
+epislon = 0.1
+X,Y,alpha = line(K, epislon)
 dim = 2
-K = 200
-X = tc.rand(K, 2)
-Y = tc.rand(K, 2)
 
-beta = 1.0  # replace with your value of beta
-f = tc.vmap(lambda X : (1/beta) * tc.exp(X[0]))
-fX = f(X)
-fY = f(Y)
+# on initialise le vecteur space
+G = Vect_space(K, dim_E = dim, neurons = 64)
+# on initialise l'optimiseur
 
+optimizer = optim.Adadelta(list(G.parameters()), lr=1e-3)
+# la loss
+losses = G.train(X,Y, alpha, optimizer, args.epochs)
 
-G = Group(K, dim_E = dim, neurons = 32)
-optimizer = optim.Adadelta(list(G.parameters()), lr=args.lr)
-
-G.train(X, Y, optimizer, args.epochs)
-
-plt.plot(X[:, 0], X[:, 1], 'x', label='train X')
-plt.plot(Y[:, 0], Y[:, 1], 'o', label='train Y')
+plt.figure(figsize=(6, 4))
+plt.plot(X[:,0], X[:,1], 'x', label='train X')
+plt.title('Training Data X')
+plt.legend()
+plt.show()
 
 
-Xe = G.f(X)
 
-if args.save_model:
-    print('Saving model...')
-    torch.save(model.state_dict(), "nas_plus.pt")
-    
-    
+# on affiche la loss 
+plt.figure(figsize=(6, 4))
+plt.plot(losses)
+plt.title('Losses')
+plt.show()
+
+
+
+# data test 
+def test_laoder():
+    K = 10
+    B = 0.3*torch.randn((K, 2))
+    C = 0.3*torch.randn((K, 2))
+    alpha = torch.randn((K, 1))
+    for i in range(K):
+        B[i,1] = B[i,0] + epislon * torch.sin(B[i,0] / epislon )
+        C[i,1] = C[i,0] + epislon * torch.sin(C[i,0] / epislon )
+    return B, C, alpha
+
+# result test 
+test = G.test(test_laoder,X)

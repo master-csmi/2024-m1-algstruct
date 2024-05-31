@@ -1,4 +1,4 @@
-\documentclass{report}
+\documentclass{article}
 
 % Packages
 \usepackage[utf8]{inputenc}
@@ -239,19 +239,19 @@ In this example, the parameter $\lambda$ affects the behavior of the solution fu
 
     \begin{enumerate}
         \item Existence of the identity element:  \[
-            L_1(\theta) = \sum_{v \in V} (e_{\text{obs}} - e_{\text{pred}})^2
+            L_1(\theta) = \sum_{(x,e) \in V \times V} (e \oplus_{\theta} x - x)^2
             \]
         \item Commutativity:
         \[
-        L_2(\theta) = \sum_{(x, y) \in V \times V} (x \oplus y - y \oplus x)^2
+        L_2(\theta) = \sum_{(x, y) \in V \times V} (x \oplus_{\theta} y - y \oplus_{\theta} x)^2
         \]
         \item Associativity:
         \[
-        L_3(\theta) = \sum_{(x, y, z) \in V \times V \times V} ((x \oplus y) \oplus z - x \oplus (y \oplus z))^2
+        L_3(\theta) = \sum_{(x, y, z) \in V \times V \times V} ((x \oplus_{\theta} y) \oplus_{\theta} z - x \oplus_{\theta} (y \oplus_{\theta} z))^2
         \]
         \item Existence of inverses:
         \[
-        L_4(\theta) = \sum_{x \in V} (-x_{\text{obs}} + (-x_{\text{pred}}))^2
+        L_4(\theta) = \sum_{(x,y,e) \in V \times V \times V} (x \oplus_{\theta} y - e)^2
         \] 
     \end{enumerate}
     
@@ -285,11 +285,11 @@ In this example, the parameter $\lambda$ affects the behavior of the solution fu
     \begin{enumerate}
         \item Loss for vector addition:
         \[
-            L_1(\theta) = \sum_{(x, y) \in V \times V} \left\lVert x \oplus y - f(f^{-1}(x)) + (f^{-1}(y)) \right\rVert_{V}^2
+            L_1(\theta) = \sum_{(x, y) \in V \times V} \left\lVert x \oplus_{\theta} y - f_{\theta}(f_{\theta}^{-1}(x)) + (f_{\theta}^{-1}(y)) \right\rVert_{V}^2
         \]
         \item Loss for scalar multiplication:
         \[
-            L_2(\theta) = \sum_{(\alpha, x) \in \mathbb{R} \times V} \left\lVert \alpha \odot x - f(\alpha \cdot f^{-1}(x)) \right\rVert_{V}^2
+            L_2(\theta) = \sum_{(\alpha, x) \in \mathbb{R} \times V} \left\lVert \alpha \odot_{\theta} x - f(\alpha \cdot f_{\theta}^{-1}(x)) \right\rVert_{V}^2
         \]
     \end{enumerate}
 
