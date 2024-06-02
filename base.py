@@ -8,6 +8,7 @@ import torch as tc
 #from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 import random
+import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
@@ -136,9 +137,26 @@ class Vect_space(nn.Module):
         
     def test(self, test_loader,X):
         B,C,alpha = test_loader()
+        #for i in range(B.shape[0]):
+           # print('B[{}]: ({:.6f}, {:.6f})\t C[{}]: ({:.6f}, {:.6f})\t alpha[{}]: {:.6f}'.format(i, B[i,0].item(), B[i,1].item(), i, C[i,0].item(), C[i,1].item(), i, alpha[i].item()))
+        
+        ############
+        # Convert B and C to numpy arrays
+        # Convert B and C to numpy arrays
+        B_np = B.numpy()
+        C_np = C.numpy()
+        alpha_np = alpha.numpy()
+
+        # Create a DataFrame
         print('test data')
-        for i in range(B.shape[0]):
-            print('B[{}]: ({:.6f}, {:.6f})\t C[{}]: ({:.6f}, {:.6f})\t alpha[{}]: {:.6f}'.format(i, B[i,0].item(), B[i,1].item(), i, C[i,0].item(), C[i,1].item(), i, alpha[i].item()))
+        df = pd.DataFrame({
+        'B_x': B_np[:, 0],
+        'B_y': B_np[:, 1],
+        'C_x': C_np[:, 0],
+        'C_y': C_np[:, 1],
+        'alpha': alpha_np[:, 0]
+                        })
+        print(df)
 
         # Générer une valeur aléatoire pour B[0,0]
         XXBC =  G.f(G.fi(B) + G.fi(C))
@@ -149,15 +167,40 @@ class Vect_space(nn.Module):
         Sum_erreur_list_inf = [torch.norm(XXBC[i] - YYBC[i], p=float('inf')).item() for i in range(len(XXBC))]
         dot_erreur_list_l2 = [torch.norm(PXBC[i] - PYBC[i], p=2).item() for i in range(len(XXBC))]
         dot_erreur_list_inf = [torch.norm(PXBC[i] - PYBC[i], p=float('inf')).item() for i in range(len(XXBC))]
-
+        # print the result
+        #########
+        # Ajouter les listes comme nouvelles colonnes dans le DataFrame
+        XXBC_list = [x.detach().numpy() for x in XXBC]
+        YYBC_list = [y.detach().numpy() for y in YYBC]
+        
+        # Ajouter la colonne 'Erreur' à la fin du DataFrame
+        # Convertir les erreurs en notation scientifique
+        Sum_erreur_list_l2 = ['{:.1e}'.format(erreur) for erreur in Sum_erreur_list_l2]
+        Sum_erreur_list_inf = ['{:.1e}'.format(erreur) for erreur in Sum_erreur_list_inf]
+        ########################
         print('resultat test of sum')
-        for i in range(XXBC.shape[0]):
-            print('$f(f^{{-1}}(B) + f^{{-1}}(C) )$: ({:.6f}, {:.6f})\t $B ⊕ C$: ({:.6f}, {:.6f})\t L2 Error: {:.6e}\t Inf Error: {:.6e}'.format(XXBC[i,0].item(), XXBC[i,1].item(), YYBC[i,0].item(), YYBC[i,1].item(), Sum_erreur_list_l2[i], Sum_erreur_list_inf[i]))
-        print('resultat test of dot')
-        for i in range(PYBC.shape[0]):
-            print('$f(alpha * f^{{-1}}(C) )$: ({:.6f}, {:.6f})\t $ alpha ⊙ C$: ({:.6f}, {:.6f})\t L2 Error: {:.6e}\t Inf Error: {:.6e}'.format(PXBC[i,0].item(), PXBC[i,1].item(), PYBC[i,0].item(), PYBC[i,1].item(), dot_erreur_list_l2[i], dot_erreur_list_inf[i]))
+        dff = pd.DataFrame({
+        'f($f^{-1}(B) + f^{-1}(C)$)': XXBC_list,
+        'B ⊕ C': YYBC_list,
+        'L^2 erreur': Sum_erreur_list_l2,
+        'inf erreur': Sum_erreur_list_inf
+                        })
+        print(dff)
+        
+        # Convertir les erreurs en notation scientifique
+        # Ajouter les listes comme nouvelles colonnes dans le DataFrame
+        PXBC_list = [x.detach().numpy() for x in PXBC]
+        PYBC_list = [y.detach().numpy() for y in PYBC]
+        dot_erreur_list_l2 = ['{:.1e}'.format(erreur) for erreur in dot_erreur_list_l2]
+        dot_erreur_list_inf = ['{:.1e}'.format(erreur) for erreur in dot_erreur_list_inf]
+        
+        ###########
+        #print('resultat test of sum')
+        #for i in range(XXBC.shape[0]):
+            #print('$f(f^{{-1}}(B) + f^{{-1}}(C) )$: ({:.6f}, {:.6f})\t $B ⊕ C$: ({:.6f}, {:.6f})\t L2 Error: {:.6e}\t Inf Error: {:.6e}'.format(XXBC[i,0].item(), XXBC[i,1].item(), YYBC[i,0].item(), YYBC[i,1].item(), Sum_erreur_list_l2[i], Sum_erreur_list_inf[i]))
         # plot sum 
         indice = random.sample(range(B.shape[0]),5)
+        print('the plot of sum')
         for i in indice:
             plt.figure()
             plt.plot(X[:, 0], X[:, 1], '.', linewidth = 0.01) 
@@ -179,23 +222,42 @@ class Vect_space(nn.Module):
             plt.show()
             plt.close()
             # plot dot
-            for i in indice:
-                plt.figure()
-                plt.plot(X[:, 0], X[:, 1], '.', linewidth = 0.01) 
-                plt.plot(B[i, 0], B[i, 1],   'x', color='red',  label=f'B_{i+1}')  
-                plt.annotate(f'B_{i+1}', (B[i, 0], B[i, 1] - 0.01))
-                # Tracer le point XXBC[i]
-                plt.plot(PXBC[i, 0].detach().numpy(), PXBC[i, 1].detach().numpy(), 'o', color='yellow', label=r'f($\alpha \cdot f^{-1}(B)$)')
-                plt.annotate(r'f($\alpha \cdot f^{-1}(B)$)', (XXBC[i, 0].detach().numpy(), XXBC[i, 1].detach().numpy() - 0.1))
+            
+            
+            
+        ############################
+        print('resultat test of dot')
+        dfff = pd.DataFrame({
+        '  f(α . f^{-1}(B))': PXBC_list,
+        'α ⊙ B': PYBC_list,
+        'L^2 erreur': dot_erreur_list_l2,
+        'inf erreur': dot_erreur_list_inf
+                        })
+        print(dfff)
+            
+            
+        #for i in range(PYBC.shape[0]):
+            #print('$f(α * f^{{-1}}(B) )$: ({:.6f}, {:.6f})\t $ α ⊙ B$: ({:.6f}, {:.6f})\t L2 Error: {:.6f}\t Inf Error: {:.6f}'.format(PXBC[i,0].item(), PXBC[i,1].item(), PYBC[i,0].item(), PYBC[i,1].item(), dot_erreur_list_l2[i], dot_erreur_list_inf[i]))
+        # indice of plot
+        indice = random.sample(range(B.shape[0]),5)
+        print('the plot of dot')
+        for i in indice:
+            plt.figure()
+            plt.plot(X[:, 0], X[:, 1], '.', linewidth = 0.01) 
+            plt.plot(B[i, 0], B[i, 1],   'x', color='red',  label=f'B_{i+1}')  
+            plt.annotate(f'B_{i+1}', (B[i, 0], B[i, 1] - 0.01))
+            # Tracer le point XXBC[i]
+            plt.plot(PXBC[i, 0].detach().numpy(), PXBC[i, 1].detach().numpy(), 'o', color='yellow', label=r'f($ α \cdot f^{-1}(B)$)')
+            plt.annotate(r'f($ α \cdot f^{-1}(B)$)', (XXBC[i, 0].detach().numpy(), XXBC[i, 1].detach().numpy() - 0.1))
 
-                # Tracer le point YYBC[i]
-                plt.plot(PXBC[i, 0].detach().numpy(), PXBC[i, 1].detach().numpy(), 'x', color='purple', label=r'$\alpha \odot B$')
-                plt.annotate(r'$\alpha \odot B$', (PYBC[i, 0].detach().numpy(), PYBC[i, 1].detach().numpy() + 0.01))
-                # Ajouter une légende au subplot    
-                plt.title(f'Pour B_{i+1}: ({B[i, 0].item():.3f}, {B[i, 1].item():.3f}), α = {alpha[i].item():.3f}', fontsize=10)
-                plt.legend()
-                plt.show()
-                plt.close()
+            # Tracer le point YYBC[i]
+            plt.plot(PXBC[i, 0].detach().numpy(), PXBC[i, 1].detach().numpy(), 'x', color='purple', label=r'$ α \odot B$')
+            plt.annotate(r'$ α \odot B$', (PYBC[i, 0].detach().numpy(), PYBC[i, 1].detach().numpy() + 0.01))
+            # Ajouter une légende au subplot    
+            plt.title(f'Pour B_{i+1}: ({B[i, 0].item():.3f}, {B[i, 1].item():.3f}), α = {alpha[i].item():.3f}', fontsize=10)
+            plt.legend()
+            plt.show()
+            plt.close()
             
             
 # Dataset generation
