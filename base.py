@@ -167,9 +167,15 @@ class Vect_space(nn.Module):
         Sum_erreur_list_inf = [torch.norm(XXBC[i] - YYBC[i], p=float('inf')).item() for i in range(len(XXBC))]
         dot_erreur_list_l2 = [torch.norm(PXBC[i] - PYBC[i], p=2).item() for i in range(len(XXBC))]
         dot_erreur_list_inf = [torch.norm(PXBC[i] - PYBC[i], p=float('inf')).item() for i in range(len(XXBC))]
+
+
+
+
         # print the result
         #########
         # Ajouter les listes comme nouvelles colonnes dans le DataFrame
+
+
         XXBC_list = [x.detach().numpy() for x in XXBC]
         YYBC_list = [y.detach().numpy() for y in YYBC]
         
@@ -177,6 +183,9 @@ class Vect_space(nn.Module):
         # Convertir les erreurs en notation scientifique
         Sum_erreur_list_l2 = ['{:.1e}'.format(erreur) for erreur in Sum_erreur_list_l2]
         Sum_erreur_list_inf = ['{:.1e}'.format(erreur) for erreur in Sum_erreur_list_inf]
+
+
+
         ########################
         print('resultat test of sum')
         dff = pd.DataFrame({
@@ -189,15 +198,16 @@ class Vect_space(nn.Module):
         
         # Convertir les erreurs en notation scientifique
         # Ajouter les listes comme nouvelles colonnes dans le DataFrame
+
+
+
         PXBC_list = [x.detach().numpy() for x in PXBC]
         PYBC_list = [y.detach().numpy() for y in PYBC]
         dot_erreur_list_l2 = ['{:.1e}'.format(erreur) for erreur in dot_erreur_list_l2]
         dot_erreur_list_inf = ['{:.1e}'.format(erreur) for erreur in dot_erreur_list_inf]
         
         ###########
-        #print('resultat test of sum')
-        #for i in range(XXBC.shape[0]):
-            #print('$f(f^{{-1}}(B) + f^{{-1}}(C) )$: ({:.6f}, {:.6f})\t $B ⊕ C$: ({:.6f}, {:.6f})\t L2 Error: {:.6e}\t Inf Error: {:.6e}'.format(XXBC[i,0].item(), XXBC[i,1].item(), YYBC[i,0].item(), YYBC[i,1].item(), Sum_erreur_list_l2[i], Sum_erreur_list_inf[i]))
+
         # plot sum 
         indice = random.sample(range(B.shape[0]),5)
         print('the plot of sum')
