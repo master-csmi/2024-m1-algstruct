@@ -20,12 +20,16 @@ clone the git repo
 
 - Create a virtual environment
 ```bash
+```bash
 python3 -m venv env
 source env/bin/activate
 ```
 
+```
+
 
 - Install the necessary dependencies:
+```bash
 ```bash
 pip install -r requirements.txt
 ```
