@@ -20,19 +20,17 @@ clone the git repo
 
 - Create a virtual environment
 ```bash
-```bash
 python3 -m venv env
 source env/bin/activate
-```
-
 ```
 
 
 - Install the necessary dependencies:
 ```bash
-```bash
 pip install -r requirements.txt
 ```
+
+
 To buid the Project ,go to the directory and run 
 ```bash
 cd chemin/vers/mon_projet/make
