@@ -19,13 +19,21 @@ To reproduce the results of this project:
 clone the git repo
 
 - Create a virtual environment
+```bash
 python3 -m venv env
 source env/bin/activate
+```
+
 
 - Install the necessary dependencies:
+```bash
 pip install -r requirements.txt
+```
+To buid the Project ,go to the directory and run
+```bash
+    cd chemin/vers/mon_projet/make
+```
 
-Then, to compile the project, go to the directory and run "make".
 
 This will generate the PDF version of the Notebook with the obtained results.
 The notebook contains two parts,
@@ -34,3 +42,6 @@ one with the variables for the test chosen according to a normal distribution an
 ## Contributors 
 * [Chahid RAHOUTI](https://github.com/chahid-rahouti)
 * [Komi Joseph Béni ASSIGBE](https://github.com/Blessed-joseph)
+
+## Details
+For more details, Kindly consult the report and the Notebook pdf files
