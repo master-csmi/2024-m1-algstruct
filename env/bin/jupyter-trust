@@ -1,0 +1,8 @@
+#!/home/mai-pret/Documents/Dossier_Béni/CSMI-M2/Projet_S_A/2024-m1-algstruct/env/bin/python3
+# -*- coding: utf-8 -*-
+import re
+import sys
+from nbformat.sign import TrustNotebookApp
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(TrustNotebookApp.launch_instance())

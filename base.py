@@ -5,7 +5,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import torch as tc
-#from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 import random
 import pandas as pd
@@ -25,7 +24,6 @@ class Morphism(nn.Module):
         self.fc3 = nn.Linear(neurons, neurons)
         self.fc4 = nn.Linear(neurons, dim_E)
 
-        # dropout layer
     def forward(self, x):
         x = self.fc1(x)
         x = self.fc2(x)
@@ -53,7 +51,10 @@ class InverseMorphism(nn.Module):
         x = self.fc3(x)
         output = self.fc4(x)
         return output    
-# La somme direct
+    
+
+
+# Première proprieté du théorème 
 class LoiBinaire(nn.Module):
     def __init__ (self, name = 'Loi binaire ExE-->E', dim_E = 1, neurons = 6):
         
@@ -73,8 +74,11 @@ class LoiBinaire(nn.Module):
         z = self.fc3(z)
         output = self.fc4(z)
         return output
-# scalaire product of structure
-# Le scalaire diect
+    
+
+
+
+# Deuxième proprieté du théorème
 class LoiScalaire(nn.Module):
     def __init__ (self, name = 'Loi Scalaire RxE-->E', dim_E = 1, neurons = 6):
         
@@ -99,7 +103,10 @@ class LoiScalaire(nn.Module):
         z = self.fc3(z)
         output = self.fc4(z)
         return output
-    # le groupe
+
+
+
+"""Implementation of the theorem of the vector space with the Train"""
 class Vect_space(nn.Module):
     def __init__ (self, K,  dim_E = 1 , neurons = 6 , name = 'Groupe (E,+)'):
         super(Vect_space, self).__init__()
@@ -124,62 +131,68 @@ class Vect_space(nn.Module):
             L1 = self.loss_1(X, Y)
             L2 = self.loss_2(alpha, X)
             loss = L1 + L2
-            #loss = loss.mean()
+
+
             if i % 200 == 0:
-               print('Epoch {}/{} -\t Loss 1: {:.6f}\t Loss 2: {:.6f}\t Total Loss: {:.6f}'.format(i, epoch, L1.item(), L2.item(), loss.item()))
+                print('Epoch {}/{} -\t Loss 1: {:.6f}\t Loss 2: {:.6f}\t Total Loss: {:.6f}'.format(i, epoch, L1.item(), L2.item(), loss.item()))
             
             loss.backward(retain_graph=True)
             optimizer.step()
             optimizer.zero_grad()
             losses.append(loss.item())
         return losses
-            
-        
+
+
     def test(self, test_loader,X):
+
         B,C,alpha = test_loader()
-        #for i in range(B.shape[0]):
-           # print('B[{}]: ({:.6f}, {:.6f})\t C[{}]: ({:.6f}, {:.6f})\t alpha[{}]: {:.6f}'.format(i, B[i,0].item(), B[i,1].item(), i, C[i,0].item(), C[i,1].item(), i, alpha[i].item()))
-        
-        ############
-        # Convert B and C to numpy arrays
-        # Convert B and C to numpy arrays
-        B_np = B.numpy()
-        C_np = C.numpy()
-        alpha_np = alpha.numpy()
+
+        B_np, C_np, alpha_np =  B.numpy(), C.numpy(), alpha.numpy()
 
         # Create a DataFrame
-        print('test data')
+        print('Les données Test pour tester le modèle')
         df = pd.DataFrame({
-        'B_x': B_np[:, 0],
-        'B_y': B_np[:, 1],
-        'C_x': C_np[:, 0],
-        'C_y': C_np[:, 1],
-        'alpha': alpha_np[:, 0]
+            'B_x': B_np[:, 0],
+            'B_y': B_np[:, 1],
+            'C_x': C_np[:, 0],
+            'C_y': C_np[:, 1],
+            'alpha': alpha_np[:, 0]
                         })
         print(df)
 
-        # Générer une valeur aléatoire pour B[0,0]
+        """
+            Examinons le comportement des fonctions f, f^{-1}, +, 
+            et \odot sur les données de test
+        """
+
+        # First propriété
         XXBC =  G.f(G.fi(B) + G.fi(C))
         YYBC = G.plus(B, C)
+
+        # Second propriété
         PXBC =  G.f(alpha * G.fi(C))
         PYBC = G.scalaire(B, C)
+
+        # Calculer les erreur L2 et inf
         Sum_erreur_list_l2 = [torch.norm(XXBC[i] - YYBC[i], p=2).item() for i in range(len(XXBC))]
         Sum_erreur_list_inf = [torch.norm(XXBC[i] - YYBC[i], p=float('inf')).item() for i in range(len(XXBC))]
+
+
         dot_erreur_list_l2 = [torch.norm(PXBC[i] - PYBC[i], p=2).item() for i in range(len(XXBC))]
         dot_erreur_list_inf = [torch.norm(PXBC[i] - PYBC[i], p=float('inf')).item() for i in range(len(XXBC))]
 
 
 
 
-        # print the result
-        #########
-        # Ajouter les listes comme nouvelles colonnes dans le DataFrame
 
+        # Ajouter les listes comme nouvelles colonnes dans le DataFrame
 
         XXBC_list = [x.detach().numpy() for x in XXBC]
         YYBC_list = [y.detach().numpy() for y in YYBC]
         
         # Ajouter la colonne 'Erreur' à la fin du DataFrame
+
+
         # Convertir les erreurs en notation scientifique
         Sum_erreur_list_l2 = ['{:.1e}'.format(erreur) for erreur in Sum_erreur_list_l2]
         Sum_erreur_list_inf = ['{:.1e}'.format(erreur) for erreur in Sum_erreur_list_inf]
@@ -187,19 +200,20 @@ class Vect_space(nn.Module):
 
 
         ########################
-        print('resultat test of sum')
-        dff = pd.DataFrame({
-        'f($f^{-1}(B) + f^{-1}(C)$)': XXBC_list,
-        'B ⊕ C': YYBC_list,
-        'L^2 erreur': Sum_erreur_list_l2,
-        'inf erreur': Sum_erreur_list_inf
+        print('resultat obtenu pour le test de la première propriété du théorème')
+        frame_sum = pd.DataFrame({
+                'f($f^{-1}(B) + f^{-1}(C)$)': XXBC_list,
+                'B ⊕ C': YYBC_list,
+                'L^2 erreur': Sum_erreur_list_l2,
+                'inf erreur': Sum_erreur_list_inf
                         })
-        print(dff)
+        print(frame_sum)
         
+
+
+
         # Convertir les erreurs en notation scientifique
         # Ajouter les listes comme nouvelles colonnes dans le DataFrame
-
-
 
         PXBC_list = [x.detach().numpy() for x in PXBC]
         PYBC_list = [y.detach().numpy() for y in PYBC]
@@ -236,19 +250,24 @@ class Vect_space(nn.Module):
             
             
         ############################
-        print('resultat test of dot')
-        dfff = pd.DataFrame({
-        '  f(α . f^{-1}(B))': PXBC_list,
-        'α ⊙ B': PYBC_list,
-        'L^2 erreur': dot_erreur_list_l2,
-        'inf erreur': dot_erreur_list_inf
-                        })
-        print(dfff)
+        print('resultat du test de la deuxième propriété du théorème ')
+        frame_dot = pd.DataFrame({
+                'f(α . f^{-1}(B))': PXBC_list,
+                'α ⊙ B': PYBC_list,
+                'L^2 erreur': dot_erreur_list_l2,
+                'inf erreur': dot_erreur_list_inf
+                })
+        
+
+        print(frame_dot)
             
             
-        #for i in range(PYBC.shape[0]):
-            #print('$f(α * f^{{-1}}(B) )$: ({:.6f}, {:.6f})\t $ α ⊙ B$: ({:.6f}, {:.6f})\t L2 Error: {:.6f}\t Inf Error: {:.6f}'.format(PXBC[i,0].item(), PXBC[i,1].item(), PYBC[i,0].item(), PYBC[i,1].item(), dot_erreur_list_l2[i], dot_erreur_list_inf[i]))
-        # indice of plot
+
+        """
+            affichage des Resultats de la seconde propriété du théorème
+        """
+
+
         indice = random.sample(range(B.shape[0]),5)
         print('the plot of dot')
         for i in indice:
@@ -269,9 +288,13 @@ class Vect_space(nn.Module):
             plt.show()
             plt.close()
             
-            
-# Dataset generation
+        
 
+
+
+
+    
+"""On Génère les données pour l'entrainement"""
 def line(K, epsilon):
     X = torch.rand(K, 2).requires_grad_(False)
     X[K//2:] *= -1
@@ -302,10 +325,6 @@ parser.add_argument('--no-mps', action='store_true', default=False,
                     help='disables macOS GPU training')
 parser.add_argument('--gamma', type=float, default=0.7, metavar='M',
                     help='Learning rate step gamma (default: 0.7)')
-# parser.add_argument('--log-interval', type=int, default=10, metavar='N',
-#                     help='how many batches to wait before logging training status')
-# parser.add_argument('--dry-run', action='store_true', default=False,
-#                     help='quickly check a single pass')
 args = parser.parse_args()
 
 
@@ -322,13 +341,13 @@ elif use_mps:
 else:
     device = torch.device("cpu")
 
-# Training datasets
 
+
+# on génère les données
 K = 2000
 epislon = 0.1
 X,Y,alpha = line(K, epislon)
 dim = 2
-
 # on initialise le vecteur space
 G = Vect_space(K, dim_E = dim, neurons = 64)
 # on initialise l'optimiseur

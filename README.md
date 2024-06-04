@@ -1,23 +1,36 @@
-#  Discovering an Algebraic structure
+# Discovering an Algebraic Structure
 
 ### Project Overview
-This project aimed to discover a algebraic structure using the Neural Network.
+This project aims to discover an algebraic structure using a Neural Network.
 
 ### Base Algorithm
-The base algorithm used for this project can be found in the Base.py file in the repository
+The base algorithm used for this project can be found in the Base.py file in the repository.
 
 ### Tools
-In this Project, we used  : 
-* Python as programing language,
-* The Pytorch Library
-* Matheamtical Modeling
+In this project, we used:
+* Python as the programming language,
+* The PyTorch Library,
+* Mathematical Modeling.
 
+For this project, we used the base document "Abstract_vector_space.pdf" which is in the git repo.
+The file base.py contains the implementation of the Neural Networks used to achieve the set objectives.
 
+To reproduce the results of this project:
+clone the git repo
 
+- Create a virtual environment
+python3 -m venv env
+source env/bin/activate
 
+- Install the necessary dependencies:
+pip install -r requirements.txt
 
+Then, to compile the project, go to the directory and run "make".
 
+This will generate the PDF version of the Notebook with the obtained results.
+The notebook contains two parts,
+one with the variables for the test chosen according to a normal distribution and we reproduce the same results this time with $\alpha$ taken between -5 and 5.
 
 ## Contributors 
-* [Chahid RAHOUTI   ](https://github.com/chahid-rahouti)
-* [ Komi Joseph Béni ASSIGBE](https://github.com/Blessed-joseph)
+* [Chahid RAHOUTI](https://github.com/chahid-rahouti)
+* [Komi Joseph Béni ASSIGBE](https://github.com/Blessed-joseph)
