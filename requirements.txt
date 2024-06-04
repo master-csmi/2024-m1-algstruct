@@ -1,4 +1,7 @@
 nbmake
 torch
-nbconvert pandoc
+nbconvert
+pandas
+texlive-xetex
+makefile
 
