@@ -300,6 +300,7 @@ def line(K, epsilon):
     X[K//2:] *= -1
     Y = torch.randn(K, 2).requires_grad_(False)
     Y[K//2:] *= -1
+    # alpha = torch.empty(K, 1).uniform_(-5, 5).requires_grad_(False)
     alpha = torch.randn(K, 1).requires_grad_(False)
     X[:,1] = X[:,0] + epsilon * torch.sin(X[:,0] / epsilon)
     Y[:,1] = Y[:,0] + epsilon * torch.sin(Y[:,0] / epsilon)
@@ -377,7 +378,7 @@ def test_laoder():
     K = 10
     B = 0.3*torch.randn((K, 2))
     C = 0.3*torch.randn((K, 2))
-    alpha = torch.randn((K, 1))
+    alpha = torch.linspace(-5,5,K).reshape(-1,1)
     for i in range(K):
         B[i,1] = B[i,0] + epislon * torch.sin(B[i,0] / epislon )
         C[i,1] = C[i,0] + epislon * torch.sin(C[i,0] / epislon )
