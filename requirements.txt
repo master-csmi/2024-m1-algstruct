@@ -1,0 +1,4 @@
+nbmake
+torch
+nbconvert pandoc
+
