@@ -16,7 +16,8 @@ For this project, we used the base document "Abstract_vector_space.pdf" which is
 The file base.py contains the implementation of the Neural Networks used to achieve the set objectives.
 
 To reproduce the results of this project:
-clone the git repo
+
+- clone the git repo
 
 - Create a virtual environment
 ```bash
