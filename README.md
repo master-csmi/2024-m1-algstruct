@@ -29,9 +29,9 @@ source env/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
-To buid the Project ,go to the directory and run
+To buid the Project ,go to the directory and run 
 ```bash
-    cd chemin/vers/mon_projet/make
+cd chemin/vers/mon_projet/make
 ```
 
 
